@@ -15,6 +15,6 @@ import model.vehicleCategory;
  *
  * @author asel
  */
-public interface DBUtill {
+public interface customerDBUtill {
    public boolean customerSignup(customer cs);
 }
