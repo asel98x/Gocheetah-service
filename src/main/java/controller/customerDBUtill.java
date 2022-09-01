@@ -17,4 +17,5 @@ import model.vehicleCategory;
  */
 public interface customerDBUtill {
    public boolean customerSignup(customer cs);
+   public boolean customerLogin(customer cs);
 }

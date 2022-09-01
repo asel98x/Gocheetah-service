@@ -1,6 +1,6 @@
 com\mycompany\gocheetah\service\GocheetahWebService.class
 model\branchCategory.class
-controller\DBUtill.class
+controller\customerDBUtill.class
 model\person.class
 model\customer.class
 connection\dbConnection.class
