@@ -5,6 +5,7 @@
 package db;
 
 import connection.dbConnection;
+import controller.adminDBUtill;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -25,7 +26,7 @@ import java.util.logging.Logger;
  *
  * @author asel
  */
-public class MySQLUtill implements customerDBUtill{
+public class MySQLUtill implements customerDBUtill, adminDBUtill{
     Connection con = null;
     Statement st = null;
     ResultSet rs = null;
@@ -61,6 +62,24 @@ public class MySQLUtill implements customerDBUtill{
         
           try {
             String query = "select * from customer where Customer_mobile = "+cs.getMobile()+" and Customer_password = '"+cs.getPassword()+"'"; 
+            rs = st.executeQuery(query);
+              System.out.println("db work");
+            
+            while(rs.next()){
+                rowsAffected = rowsAffected + 1;
+            }
+          } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rowsAffected > 0;
+    }
+    @Override
+    public boolean adminLogin(admin ad) {
+        //insert into admin (admin_name,admin_address,admin_mobile,admin_nic,admin_dob,admin_email,admin_age,branch_id) VALUES('asel','kadawatha',0765760512,'983002919v','1998.10.26','asel@gmail.com',23,1)
+        int rowsAffected = 0;
+        
+          try {
+            String query = "select * from admin where admin_email = '"+ad.getEmail()+"' and admin_password = '"+ad.getPassword()+"'"; 
             rs = st.executeQuery(query);
               System.out.println("db work");
             

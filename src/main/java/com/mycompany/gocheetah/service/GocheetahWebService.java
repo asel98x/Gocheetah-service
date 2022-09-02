@@ -4,12 +4,14 @@
  */
 package com.mycompany.gocheetah.service;
 
+import controller.adminDBUtill;
 import db.MySQLUtill;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import model.customer;
 import controller.customerDBUtill;
+import model.admin;
 
 /**
  *
@@ -36,5 +38,11 @@ public class GocheetahWebService {
     public boolean customerLogin(@WebParam(name = "cs") customer cs){
         customerDBUtill util = new MySQLUtill();
         return util.customerLogin(cs);
+    }
+    
+    @WebMethod(operationName = "adminLogin")
+    public boolean adminLogin(@WebParam(name = "ad") admin ad){
+        adminDBUtill util = new MySQLUtill();
+        return util.adminLogin(ad);
     }
 }

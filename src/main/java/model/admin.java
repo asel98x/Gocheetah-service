@@ -12,6 +12,11 @@ public class admin extends person{
 
     private int adminId;
 
+    public admin() {
+    }
+
+    
+    
     public admin(int adminId, String name, String address, int mobile, String nic, String dob, int age, String email, String branch, String password) {
         super(name, address, mobile, nic, dob, age, email, branch, password);
         this.adminId = adminId;
