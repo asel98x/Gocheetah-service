@@ -9,5 +9,6 @@ model\branchCategory.class
 controller\customerDBUtill.class
 controller\adminDBUtill.class
 connection\dbConnection.class
+controller\driverDBUtill.class
 model\driver.class
 db\MySQLUtill.class

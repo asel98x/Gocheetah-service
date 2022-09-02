@@ -11,7 +11,9 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import model.customer;
 import controller.customerDBUtill;
+import controller.driverDBUtill;
 import model.admin;
+import model.driver;
 
 /**
  *
@@ -44,5 +46,11 @@ public class GocheetahWebService {
     public boolean adminLogin(@WebParam(name = "ad") admin ad){
         adminDBUtill util = new MySQLUtill();
         return util.adminLogin(ad);
+    }
+    
+    @WebMethod(operationName = "driverLogin")
+    public boolean driverLogin(@WebParam(name = "dr") driver dr){
+        driverDBUtill util = new MySQLUtill();
+        return util.driverLogin(dr);
     }
 }

@@ -18,6 +18,7 @@ import model.driver;
 import model.vehicle;
 import model.vehicleCategory;
 import controller.customerDBUtill;
+import controller.driverDBUtill;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +27,7 @@ import java.util.logging.Logger;
  *
  * @author asel
  */
-public class MySQLUtill implements customerDBUtill, adminDBUtill{
+public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill{
     Connection con = null;
     Statement st = null;
     ResultSet rs = null;
@@ -80,6 +81,24 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill{
         
           try {
             String query = "select * from admin where admin_email = '"+ad.getEmail()+"' and admin_password = '"+ad.getPassword()+"'"; 
+            rs = st.executeQuery(query);
+              System.out.println("db work");
+            
+            while(rs.next()){
+                rowsAffected = rowsAffected + 1;
+            }
+          } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public boolean driverLogin(driver dr) {
+        int rowsAffected = 0;
+        //insert into driver (driver_name,driver_address,driver_mobile,driver_nic,driver_dob,driver_email,driver_age,driver_password,branch_id) VALUES('asel','kadawataha',0765760512,'983002919v','1998.10.26','vinjith98@gmail.com',23,'MTIzNDU2Nzg5MA==',1)
+          try {
+            String query = "select * from driver where driver_nic = '"+dr.getNic()+"' and driver_password = '"+dr.getPassword()+"'"; 
             rs = st.executeQuery(query);
               System.out.println("db work");
             

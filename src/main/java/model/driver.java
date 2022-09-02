@@ -12,6 +12,11 @@ public class driver extends person{
 
     private int vehicleId;
 
+    public driver() {
+    }
+
+    
+    
     public driver(int vehicleId) {
         this.vehicleId = vehicleId;
     }
