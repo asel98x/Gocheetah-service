@@ -12,13 +12,15 @@ public class branchCategory {
     private int branchId;
     private String location;
 
+    
+    
     public branchCategory(int branchId, String location) {
         this.branchId = branchId;
         this.location = location;
     }
 
     public branchCategory() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
 

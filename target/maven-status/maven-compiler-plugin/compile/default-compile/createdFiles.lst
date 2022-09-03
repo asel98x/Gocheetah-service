@@ -4,6 +4,7 @@ model\customer.class
 model\vehicleCategory.class
 model\admin.class
 model\booking.class
+controller\branchCategoryDBUtill.class
 model\vehicle.class
 model\branchCategory.class
 controller\customerDBUtill.class
