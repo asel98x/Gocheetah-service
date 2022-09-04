@@ -1,4 +1,4 @@
- /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -20,17 +20,19 @@ import model.vehicle;
 import model.vehicleCategory;
 import controller.customerDBUtill;
 import controller.driverDBUtill;
+import controller.vehicleCategoryDBUtill;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.vehicleCat;
 
 /**
  *
  * @author asel
  */
-public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill, branchCategoryDBUtill {
+public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill, branchCategoryDBUtill, vehicleCategoryDBUtill {
 
     Connection con = null;
     Statement st = null;
@@ -154,7 +156,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
             String query = "select * from branch";
             rs = st.executeQuery(query);
             System.out.println("db work");
-            while(rs.next()) {
+            while (rs.next()) {
                 branchCategory brnch = new branchCategory();
                 brnch.setBranchId(rs.getInt("branch_id"));
                 brnch.setLocation(rs.getString("location"));
@@ -165,5 +167,48 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         }
         return bn;
     }
+
+    @Override
+    public branchCategory getBranch(int id) {
+        branchCategory bn = new branchCategory();
+
+        try {
+            rs = st.executeQuery("SELECT * FROM branch WHERE id=" + id);
+            rs.next();
+            bn.setBranchId(rs.getInt("branch_id"));
+            bn.setLocation(rs.getString("location"));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return bn;
+    }
+
+    @Override
+    public boolean updatedBranch(branchCategory bn) {
+        int rowsAffected = 0;
+
+        try {
+            rowsAffected = st.executeUpdate("UPDATE `branch` SET `location` = '" + bn.getLocation()+ "' WHERE (branch_id = " + bn.getBranchId()+ ")");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public boolean addVehicleCategory(vehicleCat vc) {
+        int rowsAffected = 0;
+        try {
+
+            rowsAffected = st.executeUpdate("INSERT INTO vehiCategory (vehicleCat_category) VALUE ('" + vc.getVehicleCategory()+ "')");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rowsAffected > 0;
+    }
+
 
 }

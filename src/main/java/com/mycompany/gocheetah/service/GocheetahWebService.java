@@ -13,10 +13,13 @@ import javax.jws.WebParam;
 import model.customer;
 import controller.customerDBUtill;
 import controller.driverDBUtill;
+import controller.vehicleCategoryDBUtill;
 import java.util.List;
 import model.admin;
 import model.branchCategory;
 import model.driver;
+import model.vehicleCat;
+import model.vehicleCategory;
 
 /**
  *
@@ -73,5 +76,23 @@ public class GocheetahWebService {
     public List<branchCategory> branchesList() {
         branchCategoryDBUtill util = new MySQLUtill();
         return util.branchesList();
+    }
+    
+    @WebMethod(operationName = "getBranch")
+    public branchCategory getBranch(@WebParam(name = "bn") int bn) {
+        branchCategoryDBUtill util = new MySQLUtill();
+        return util.getBranch(bn);
+    }
+    
+    @WebMethod(operationName = "updatedBranch")
+    public boolean updatedBranch(@WebParam(name = "bn") branchCategory bn) {
+        branchCategoryDBUtill util = new MySQLUtill();
+        return util.updatedBranch(bn);
+    }
+    
+    @WebMethod(operationName = "addVehicleCategory")
+    public boolean addVehicleCategory(@WebParam(name = "vc") vehicleCat vc){
+        vehicleCategoryDBUtill util = new MySQLUtill();
+        return util.addVehicleCategory(vc);
     }
 }
