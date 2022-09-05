@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/WebServices/WebService.java to edit this template
@@ -14,10 +15,12 @@ import model.customer;
 import controller.customerDBUtill;
 import controller.driverDBUtill;
 import controller.vehicleCategoryDBUtill;
+import controller.vehicleDBUtill;
 import java.util.List;
 import model.admin;
 import model.branchCategory;
 import model.driver;
+import model.vehicle;
 import model.vehicleCat;
 import model.vehicleCategory;
 
@@ -90,9 +93,58 @@ public class GocheetahWebService {
         return util.updatedBranch(bn);
     }
     
+    @WebMethod(operationName = "deleteBranch")
+    public boolean deleteBranch(@WebParam(name = "bn") branchCategory bn){
+        branchCategoryDBUtill util = new MySQLUtill();
+        return util.deleteBranch(bn);
+    }
+    
+    
     @WebMethod(operationName = "addVehicleCategory")
     public boolean addVehicleCategory(@WebParam(name = "vc") vehicleCat vc){
         vehicleCategoryDBUtill util = new MySQLUtill();
         return util.addVehicleCategory(vc);
+    }
+    
+    @WebMethod(operationName = "viewVehicleCateories")
+    public List<vehicleCat> viewVehicleCateories(){
+        vehicleCategoryDBUtill util = new MySQLUtill();
+        return util.viewVehicleCateories();
+    }
+    
+    @WebMethod(operationName = "vehicleCategoryList")
+    public List<vehicleCat> vehicleCategoryList() {
+        vehicleCategoryDBUtill util = new MySQLUtill();
+        return util.vehicleCategoryList();
+    }
+    
+    @WebMethod(operationName = "updatedVehicleCategory")
+    public boolean updatedVehicleCategory(@WebParam(name = "vc") vehicleCat vc) {
+        vehicleCategoryDBUtill util = new MySQLUtill();
+        return util.updatedVehicleCategory(vc);
+    }
+    
+    @WebMethod(operationName = "deleteVehicleCategory")
+    public boolean deleteVehicleCategory(@WebParam(name = "vc") vehicleCat vc){
+        vehicleCategoryDBUtill util = new MySQLUtill();
+        return util.deleteVehicleCategory(vc);
+    }
+    
+    @WebMethod(operationName = "addVehicle")
+    public boolean addVehicle(@WebParam(name = "vh") vehicle vh){
+        vehicleDBUtill util = new MySQLUtill();
+        return util.addVehicle(vh);
+    }
+    
+    @WebMethod(operationName = "viewVehicles")
+    public List<vehicle> viewVehicles(){
+        vehicleDBUtill util = new MySQLUtill();
+        return util.viewVehicles();
+    }
+    
+    @WebMethod(operationName = "vehicleList")
+    public List<vehicle> vehicleList() {
+        vehicleDBUtill util = new MySQLUtill();
+        return util.vehicleList();
     }
 }

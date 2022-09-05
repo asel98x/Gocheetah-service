@@ -21,6 +21,7 @@ import model.vehicleCategory;
 import controller.customerDBUtill;
 import controller.driverDBUtill;
 import controller.vehicleCategoryDBUtill;
+import controller.vehicleDBUtill;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ import model.vehicleCat;
  *
  * @author asel
  */
-public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill, branchCategoryDBUtill, vehicleCategoryDBUtill {
+public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill, branchCategoryDBUtill, vehicleCategoryDBUtill, vehicleDBUtill {
 
     Connection con = null;
     Statement st = null;
@@ -173,7 +174,8 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         branchCategory bn = new branchCategory();
 
         try {
-            rs = st.executeQuery("SELECT * FROM branch WHERE id=" + id);
+            rs = st.executeQuery("SELECT * FROM branch WHERE WHERE (branch_id  = " + id + ")");
+                                
             rs.next();
             bn.setBranchId(rs.getInt("branch_id"));
             bn.setLocation(rs.getString("location"));
@@ -188,7 +190,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
 
         try {
-            rowsAffected = st.executeUpdate("UPDATE `branch` SET `location` = '" + bn.getLocation()+ "' WHERE (branch_id = " + bn.getBranchId()+ ")");
+            rowsAffected = st.executeUpdate("UPDATE `branch` SET `location` = '" + bn.getLocation() + "' WHERE (branch_id = " + bn.getBranchId() + ")");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -198,11 +200,23 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
     }
 
     @Override
+    public boolean deleteBranch(branchCategory bn) {
+        int rowsAffected = 0;
+        try {
+            rowsAffected = st.executeUpdate("delete FROM branch WHERE (branch_id  = " + bn.getBranchId() + ")");
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rowsAffected > 0;
+    }
+
+    @Override
     public boolean addVehicleCategory(vehicleCat vc) {
         int rowsAffected = 0;
         try {
 
-            rowsAffected = st.executeUpdate("INSERT INTO vehiCategory (vehicleCat_category) VALUE ('" + vc.getVehicleCategory()+ "')");
+            rowsAffected = st.executeUpdate("INSERT INTO vehiCategory (vehicleCat_category) VALUE ('" + vc.getVehicleCategory() + "')");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -210,5 +224,140 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         return rowsAffected > 0;
     }
 
+    @Override
+    public List<vehicleCat> viewVehicleCateories() {
+        List<vehicleCat> vc = new ArrayList<>();
+        try {
+            String query = "SELECT vehicleCat_category   FROM `vehicategory` ";
+            rs = st.executeQuery(query);
+            System.out.println("db work");
+
+            while (rs.next()) {
+                vehicleCat vehi = new vehicleCat();
+                vehi.setVehicleCategory(rs.getString("vehicleCat_category"));
+                vc.add(vehi);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return vc;
+    }
+
+    @Override
+    public List<vehicleCat> vehicleCategoryList() {
+        List<vehicleCat> vc = new ArrayList<>();
+        try {
+            String query = "select * from vehicategory";
+            rs = st.executeQuery(query);
+            System.out.println("db work");
+            while (rs.next()) {
+                vehicleCat vehi = new vehicleCat();
+                vehi.setVehicleCatId(rs.getInt("vehicleCat_id"));
+                vehi.setVehicleCategory(rs.getString("vehicleCat_category"));
+                vc.add(vehi);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return vc;
+    }
+
+    @Override
+    public vehicleCat getVehicleCategoryh(int id) {
+        vehicleCat vc = new vehicleCat();
+
+        try {
+            rs = st.executeQuery("SELECT * FROM vehicategory WHERE vehicleCat_id=" + id);
+            rs.next();
+            vc.setVehicleCatId(rs.getInt("vehicleCat_id"));
+            vc.setVehicleCategory(rs.getString("vehicleCat_category"));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return vc;
+    }
+
+    @Override
+    public boolean updatedVehicleCategory(vehicleCat vc) {
+        int rowsAffected = 0;
+
+        try {
+            rowsAffected = st.executeUpdate("UPDATE `vehicategory` SET `vehicleCat_category` = '" + vc.getVehicleCategory() + "' WHERE (vehicleCat_id = " + vc.getVehicleCatId() + ")");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return rowsAffected > 0;
+    }
+    
+    @Override
+    public boolean deleteVehicleCategory(vehicleCat vc) {
+        int rowsAffected = 0;
+        try {
+            rowsAffected = st.executeUpdate("delete FROM vehicategory WHERE (vehicleCat_id  = " + vc.getVehicleCatId()+ ")");
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public boolean addVehicle(vehicle vh) {
+        int rowsAffected = 0;
+        try {
+
+            rowsAffected = st.executeUpdate("INSERT INTO vehicle (vehicle_chasiNno,vehicle_noPlate,vehicleCatgory,branch,driver_id) VALUE ('" + vh.getChasiNo() + "', '" + vh.getNoPlate() + "', '" + vh.getCategory() + "', '" + vh.getBranch() + "',  '" + vh.getDriver() + "')");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public List<vehicle> viewVehicles() {
+        List<vehicle> vh = new ArrayList<>();
+        try {
+            String query = "SELECT vehicleCatgory   FROM `vehicle` ";
+            rs = st.executeQuery(query);
+            System.out.println("db work");
+
+            while (rs.next()) {
+                vehicle vhcl = new vehicle();
+                vhcl.setCategory(rs.getString("vehicleCatgory"));
+                vh.add(vhcl);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return vh;
+    }
+
+    @Override
+    public List<vehicle> vehicleList() {
+        List<vehicle> vh = new ArrayList<>();
+        try {
+            String query = "select * from vehicle";
+            rs = st.executeQuery(query);
+            System.out.println("db work");
+            while (rs.next()) {
+                vehicle vhcl = new vehicle();
+                vhcl.setVehicleId(rs.getInt("vehicle_id"));
+                vhcl.setChasiNo(rs.getString("vehicle_chasiNno"));
+                vhcl.setNoPlate(rs.getString("vehicle_noPlate"));
+                vhcl.setCategory(rs.getString("vehicleCatgory"));
+                vhcl.setBranch(rs.getString("branch"));
+                vhcl.setDriver(rs.getString("driver_id"));
+                vh.add(vhcl);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return vh;
+    }
+
+    
 
 }

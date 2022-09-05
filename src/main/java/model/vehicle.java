@@ -8,16 +8,18 @@ package model;
  *
  * @author asel
  */
-public class vehicle extends vehicleCategory{
+public class vehicle{
     private int vehicleId;
     private String ChasiNo;
     private String NoPlate;
-    private int Category;
-    private int branch;
-    private int driver;
+    private String Category;
+    private String branch;
+    private String driver;
 
-    public vehicle(int vehicleId, String ChasiNo, String NoPlate, int Category, int branch, int driver, int vehicleCatId, String vehicleCategory) {
-        super(vehicleCatId, vehicleCategory);
+    public vehicle() {
+    }
+
+    public vehicle(int vehicleId, String ChasiNo, String NoPlate, String Category, String branch, String driver) {
         this.vehicleId = vehicleId;
         this.ChasiNo = ChasiNo;
         this.NoPlate = NoPlate;
@@ -50,34 +52,35 @@ public class vehicle extends vehicleCategory{
         this.NoPlate = NoPlate;
     }
 
-    public int getCategory() {
+    public String getCategory() {
         return Category;
     }
 
-    public void setCategory(int Category) {
+    public void setCategory(String Category) {
         this.Category = Category;
     }
 
-    public int getBranch() {
+    public String getBranch() {
         return branch;
     }
 
-    public void setBranch(int branch) {
+    public void setBranch(String branch) {
         this.branch = branch;
     }
 
-    public int getDriver() {
+    public String getDriver() {
         return driver;
     }
 
-    public void setDriver(int driver) {
+    public void setDriver(String driver) {
         this.driver = driver;
     }
 
-    
+   
     
 
     
-    
+ 
     
 }
+    

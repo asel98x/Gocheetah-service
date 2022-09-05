@@ -5,6 +5,7 @@
 package controller;
 
 
+import java.util.List;
 import model.vehicleCat;
 
 
@@ -14,4 +15,9 @@ import model.vehicleCat;
  */
 public interface vehicleCategoryDBUtill {
     public boolean addVehicleCategory(vehicleCat vc);
+    public List<vehicleCat> viewVehicleCateories();
+    public List<vehicleCat>vehicleCategoryList();
+    public vehicleCat getVehicleCategoryh(int id);
+    public boolean updatedVehicleCategory(vehicleCat vc);
+    public boolean deleteVehicleCategory(vehicleCat vc);
 }

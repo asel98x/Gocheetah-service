@@ -17,4 +17,5 @@ public interface branchCategoryDBUtill {
     public List<branchCategory>branchesList();
     public branchCategory getBranch(int id);
     public boolean updatedBranch(branchCategory bn);
+    public boolean deleteBranch(branchCategory bn);
 }

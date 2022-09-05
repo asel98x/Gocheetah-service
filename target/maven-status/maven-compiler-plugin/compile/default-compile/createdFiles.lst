@@ -1,10 +1,13 @@
 com\mycompany\gocheetah\service\GocheetahWebService.class
+controller\vehicleCategoryDBUtill.class
 model\person.class
 model\customer.class
 model\vehicleCategory.class
 model\admin.class
 model\booking.class
 controller\branchCategoryDBUtill.class
+model\vehicleCat.class
+controller\vehicleDBUtill.class
 model\vehicle.class
 model\branchCategory.class
 controller\customerDBUtill.class
