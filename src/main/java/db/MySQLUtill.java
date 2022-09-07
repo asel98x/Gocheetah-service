@@ -99,6 +99,20 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         }
         return rowsAffected > 0;
     }
+    
+    @Override
+    public boolean addAdmin(admin ad) {
+        int rowsAffected = 0;
+        try {
+
+            rowsAffected = st.executeUpdate("INSERT INTO admin (admin_name,admin_address,admin_mobile,admin_nic,admin_dob,admin_email,admin_age,admin_password,branch,admin_type) VALUES"
+                    + " ('" + ad.getName()+ "','" + ad.getAddress()+ "'," + ad.getMobile()+ ",'" + ad.getNic()+ "','" + ad.getDob()+ "','" + ad.getEmail()+ "','" + ad.getAge()+ "','" + ad.getPassword()+ "','" + ad.getBranch()+ "','" + ad.getType()+ "')");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rowsAffected > 0;
+    }
 
     @Override
     public boolean driverLogin(driver dr) {
@@ -357,6 +371,39 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         }
         return vh;
     }
+
+    @Override
+    public vehicle getVehicle(int id) {
+         vehicle vh = new vehicle();
+
+        try {
+            rs = st.executeQuery("SELECT * FROM vehicle WHERE vehicle_id =" + id);
+            rs.next();
+            
+            vh.setChasiNo(rs.getString("vehicle_chasiNno"));
+            vh.setNoPlate(rs.getString("vehicle_noPlate"));
+            vh.setCategory(rs.getString("vehicleCatgory"));
+            vh.setBranch(rs.getString("branch"));
+            vh.setDriver(rs.getString("driver_id"));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return vh;
+    }
+
+    @Override
+    public boolean deleteVehicle(vehicle vh) {
+        int rowsAffected = 0;
+        try {
+            rowsAffected = st.executeUpdate("delete FROM vehicle WHERE (vehicle_id  = " + vh.getVehicleId()+ ")");
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rowsAffected > 0;
+    }
+
+    
 
     
 

@@ -57,6 +57,12 @@ public class GocheetahWebService {
         return util.adminLogin(ad);
     }
     
+    @WebMethod(operationName = "addAdmin")
+    public boolean addAdmin(@WebParam(name = "ad") admin ad){
+        adminDBUtill util = new MySQLUtill();
+        return util.addAdmin(ad);
+    }
+    
     @WebMethod(operationName = "driverLogin")
     public boolean driverLogin(@WebParam(name = "dr") driver dr){
         driverDBUtill util = new MySQLUtill();
@@ -146,5 +152,17 @@ public class GocheetahWebService {
     public List<vehicle> vehicleList() {
         vehicleDBUtill util = new MySQLUtill();
         return util.vehicleList();
+    }
+    
+    @WebMethod(operationName = "getVehicle")
+    public vehicle getVehicle(@WebParam(name = "v") int id) {
+        vehicleDBUtill util = new MySQLUtill();
+        return util.getVehicle(id);
+    }
+    
+    @WebMethod(operationName = "deleteVehicle")
+    public boolean deleteVehicle(@WebParam(name = "vh") vehicle vh){
+        vehicleDBUtill util = new MySQLUtill();
+        return util.deleteVehicle(vh);
     }
 }

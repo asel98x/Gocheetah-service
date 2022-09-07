@@ -12,4 +12,5 @@ import model.admin;
  */
 public interface adminDBUtill {
     public boolean adminLogin(admin ad);
+    public boolean addAdmin(admin ad);
 }
