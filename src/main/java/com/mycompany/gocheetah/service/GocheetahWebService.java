@@ -51,6 +51,30 @@ public class GocheetahWebService {
         return util.customerLogin(cs);
     }
     
+    @WebMethod(operationName = "customerList")
+    public List<customer> customerList() {
+        customerDBUtill util = new MySQLUtill();
+        return util.customerList();
+    }
+    
+    @WebMethod(operationName = "getCustomer")
+    public customer getCustomer(@WebParam(name = "id") int id) {
+        customerDBUtill util = new MySQLUtill();
+        return util.getCustomer(id);
+    }
+    
+    @WebMethod(operationName = "updatedCustomer")
+    public boolean updatedCustomer(@WebParam(name = "cs") customer cs) {
+        customerDBUtill util = new MySQLUtill();
+        return util.updatedCustomer(cs);
+    }
+    
+    @WebMethod(operationName = "deleteCustomer")
+    public boolean deleteCustomer(@WebParam(name = "cs") customer cs){
+        customerDBUtill util = new MySQLUtill();
+        return util.deleteCustomer(cs);
+    }
+    
     @WebMethod(operationName = "adminLogin")
     public boolean adminLogin(@WebParam(name = "ad") admin ad){
         adminDBUtill util = new MySQLUtill();
@@ -63,10 +87,64 @@ public class GocheetahWebService {
         return util.addAdmin(ad);
     }
     
+    @WebMethod(operationName = "AdminList")
+    public List<admin> AdminList() {
+        adminDBUtill util = new MySQLUtill();
+        return util.AdminList();
+    }
+    
+    @WebMethod(operationName = "getAdmin")
+    public admin getAdmin(@WebParam(name = "id") int id) {
+        adminDBUtill util = new MySQLUtill();
+        return util.getAdmin(id);
+    }
+    
+    @WebMethod(operationName = "updateAdmin")
+    public boolean updateAdmin(@WebParam(name = "dr") admin ad) {
+        adminDBUtill util = new MySQLUtill();
+        return util.updateAdmin(ad);
+    }
+    
+    @WebMethod(operationName = "deleteAdmin")
+    public boolean deleteAdmin(@WebParam(name = "ad") admin ad){
+        adminDBUtill util = new MySQLUtill();
+        return util.deleteAdmin(ad);
+    }
+    
     @WebMethod(operationName = "driverLogin")
     public boolean driverLogin(@WebParam(name = "dr") driver dr){
         driverDBUtill util = new MySQLUtill();
         return util.driverLogin(dr);
+    }
+    
+    @WebMethod(operationName = "addDriver")
+    public boolean addDriver(@WebParam(name = "dr") driver dr){
+        driverDBUtill util = new MySQLUtill();
+        return util.addDriver(dr);
+    }
+    
+    @WebMethod(operationName = "DriverList")
+    public List<driver> DriverList() {
+        driverDBUtill util = new MySQLUtill();
+        return util.DriverList();
+    }
+    
+    @WebMethod(operationName = "getDriver")
+    public driver getDriver(@WebParam(name = "id") int id) {
+        driverDBUtill util = new MySQLUtill();
+        return util.getDriver(id);
+    }
+    
+    @WebMethod(operationName = "updateDriver")
+    public boolean updateDriver(@WebParam(name = "dr") driver dr) {
+        driverDBUtill util = new MySQLUtill();
+        return util.updateDriver(dr);
+    }
+    
+    @WebMethod(operationName = "deleteDriver")
+    public boolean deleteDriver(@WebParam(name = "cs") driver dr){
+        driverDBUtill util = new MySQLUtill();
+        return util.deleteDriver(dr);
     }
     
     @WebMethod(operationName = "addBranch")
@@ -122,6 +200,12 @@ public class GocheetahWebService {
     public List<vehicleCat> vehicleCategoryList() {
         vehicleCategoryDBUtill util = new MySQLUtill();
         return util.vehicleCategoryList();
+    }
+    
+    @WebMethod(operationName = "getVehicleCategoryh")
+    public vehicleCat getVehicleCategoryh(@WebParam(name = "id") int id) {
+        vehicleCategoryDBUtill util = new MySQLUtill();
+        return util.getVehicleCategoryh(id);
     }
     
     @WebMethod(operationName = "updatedVehicleCategory")

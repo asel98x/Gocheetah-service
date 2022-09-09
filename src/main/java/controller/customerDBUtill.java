@@ -4,12 +4,8 @@
  */
 package controller;
 
-import model.admin;
-import model.branchCategory;
+import java.util.List;
 import model.customer;
-import model.driver;
-import model.vehicle;
-import model.vehicleCategory;
 
 /**
  *
@@ -18,4 +14,8 @@ import model.vehicleCategory;
 public interface customerDBUtill {
    public boolean customerSignup(customer cs);
    public boolean customerLogin(customer cs);
+   public List<customer>customerList();
+   public customer getCustomer(int id);
+   public boolean updatedCustomer(customer cs);
+   public boolean deleteCustomer(customer cs);
 }

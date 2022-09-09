@@ -10,29 +10,27 @@ package model;
  */
 public class driver extends person{
 
-    private int vehicleId;
+    private int driverID;
 
     public driver() {
     }
 
-    
-    
-    public driver(int vehicleId) {
-        this.vehicleId = vehicleId;
-    }
-
-    public driver(int vehicleId, String name, String address, int mobile, String nic, String dob, int age, String email, String branch, String password) {
+    public driver(int driverID, String name, String address, int mobile, String nic, String dob, int age, String email, String branch, String password) {
         super(name, address, mobile, nic, dob, age, email, branch, password);
-        this.vehicleId = vehicleId;
+        this.driverID = driverID;
     }
 
-    public int getVehicleId() {
-        return vehicleId;
+    public int getDriverID() {
+        return driverID;
     }
 
-    public void setVehicleId(int vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setDriverID(int driverID) {
+        this.driverID = driverID;
     }
+
+    
+    
+    
 
     
     

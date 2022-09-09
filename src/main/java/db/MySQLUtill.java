@@ -53,8 +53,8 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
         try {
 
-            rowsAffected = st.executeUpdate("INSERT INTO customer (Customer_name, Customer_address, Customer_mobile, Customer_nic, Customer_email, Customer_password)"
-                    + " VALUES ('" + cs.getName() + "', '" + cs.getAddress() + "', " + cs.getMobile() + ", '" + cs.getNic() + "', '" + cs.getEmail() + "', '" + cs.getPassword() + "')");
+            rowsAffected = st.executeUpdate("INSERT INTO customer (Customer_name,Customer_address,Customer_mobile,Customer_nic,Customer_email,Customer_branch,Customer_password) VALUES"
+                    + " ('" + cs.getName() + "','" + cs.getAddress() + "'," + cs.getMobile() + ",'" + cs.getNic() + "','" + cs.getEmail() + "','" + cs.getBranch() + "','" + cs.getPassword() + "')");
 
             //INSERT INTO `customer` (Customer_name, Customer_address, Customer_mobile, Customer_nic, Customer_email, Customer_password) values ('asel','address',0712345678,'983002919v','email','12345');
         } catch (Exception e) {
@@ -82,6 +82,80 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
     }
 
     @Override
+    public List<customer> customerList() {
+        List<customer> cs = new ArrayList<>();
+        try {
+            String query = "select * from customer";
+            rs = st.executeQuery(query);
+            System.out.println("db work");
+            while (rs.next()) {
+                customer cstm = new customer();
+                cstm.setCustomerId(rs.getInt("Customer_id"));
+                cstm.setName(rs.getString("Customer_name"));
+                cstm.setAddress(rs.getString("Customer_address"));
+                cstm.setMobile(rs.getInt("Customer_mobile"));
+                cstm.setNic(rs.getString("Customer_nic"));
+                cstm.setEmail(rs.getString("Customer_email"));
+                cstm.setBranch(rs.getString("Customer_branch"));
+                cstm.setPassword(rs.getString("Customer_password"));
+                cs.add(cstm);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return cs;
+    }
+
+    @Override
+    public customer getCustomer(int id) {
+        customer cs = new customer();
+
+        try {
+            rs = st.executeQuery("SELECT * FROM customer WHERE (Customer_id   = " + id + ")");
+
+            rs.next();
+            cs.setCustomerId(rs.getInt("Customer_id"));
+            cs.setName(rs.getString("Customer_name"));
+            cs.setAddress(rs.getString("Customer_address"));
+            cs.setMobile(rs.getInt("Customer_mobile"));
+            cs.setNic(rs.getString("Customer_nic"));
+            cs.setEmail(rs.getString("Customer_email"));
+            cs.setBranch(rs.getString("Customer_branch"));
+            cs.setPassword(rs.getString("Customer_password"));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return cs;
+    }
+
+    @Override
+    public boolean updatedCustomer(customer cs) {
+        int rowsAffected = 0;
+
+        try {
+            rowsAffected = st.executeUpdate("UPDATE `customer` SET Customer_name = '" + cs.getName() + "',Customer_address = '" + cs.getAddress() + "',Customer_mobile = " + cs.getMobile() + ",Customer_nic = '" + cs.getNic() + "',Customer_email = '" + cs.getEmail() + "',"
+                    + "Customer_branch = '" + cs.getBranch() + "',Customer_password = '" + cs.getPassword() + "' WHERE (Customer_id  = " + cs.getCustomerId() + ")");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public boolean deleteCustomer(customer cs) {
+        int rowsAffected = 0;
+        try {
+            rowsAffected = st.executeUpdate("delete FROM customer WHERE (Customer_id  = " + cs.getCustomerId() + ")");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rowsAffected > 0;
+    }
+
+    @Override
     public boolean adminLogin(admin ad) {
         //insert into admin (admin_name,admin_address,admin_mobile,admin_nic,admin_dob,admin_email,admin_age,branch_id) VALUES('asel','kadawatha',0765760512,'983002919v','1998.10.26','asel@gmail.com',23,1)
         int rowsAffected = 0;
@@ -99,19 +173,99 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         }
         return rowsAffected > 0;
     }
-    
+
     @Override
     public boolean addAdmin(admin ad) {
         int rowsAffected = 0;
         try {
 
             rowsAffected = st.executeUpdate("INSERT INTO admin (admin_name,admin_address,admin_mobile,admin_nic,admin_dob,admin_email,admin_age,admin_password,branch,admin_type) VALUES"
-                    + " ('" + ad.getName()+ "','" + ad.getAddress()+ "'," + ad.getMobile()+ ",'" + ad.getNic()+ "','" + ad.getDob()+ "','" + ad.getEmail()+ "','" + ad.getAge()+ "','" + ad.getPassword()+ "','" + ad.getBranch()+ "','" + ad.getType()+ "')");
+                    + " ('" + ad.getName() + "','" + ad.getAddress() + "'," + ad.getMobile() + ",'" + ad.getNic() + "','" + ad.getDob() + "','" + ad.getEmail() + "','" + ad.getAge() + "','" + ad.getPassword() + "','" + ad.getBranch() + "','" + ad.getType() + "')");
 
         } catch (Exception e) {
             System.out.println(e);
         }
         return rowsAffected > 0;
+    }
+
+    @Override
+    public List<admin> AdminList() {
+        List<admin> ad = new ArrayList<>();
+        try {
+            String query = "select * from admin";
+            rs = st.executeQuery(query);
+            System.out.println("db work");
+            while (rs.next()) {
+                admin admn = new admin();
+                admn.setAdminId(rs.getInt("admin_id"));
+                admn.setName(rs.getString("admin_name"));
+                admn.setAddress(rs.getString("admin_address"));
+                admn.setMobile(rs.getInt("admin_mobile"));
+                admn.setNic(rs.getString("admin_nic"));
+                admn.setDob(rs.getString("admin_dob"));
+                admn.setEmail(rs.getString("admin_email"));
+                admn.setAge(rs.getInt("admin_age"));
+                admn.setPassword(rs.getString("admin_password"));
+                admn.setBranch(rs.getString("branch"));
+                admn.setType(rs.getString("admin_type"));
+                ad.add(admn);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return ad;
+    }
+
+    @Override
+    public admin getAdmin(int id) {
+        admin ad = new admin();
+
+        try {
+            rs = st.executeQuery("SELECT * FROM admin WHERE (admin_id   = " + id + ")");
+
+            rs.next();
+            ad.setAdminId(rs.getInt("admin_id"));
+            ad.setName(rs.getString("admin_name"));
+            ad.setAddress(rs.getString("admin_address"));
+            ad.setMobile(rs.getInt("admin_mobile"));
+            ad.setNic(rs.getString("admin_nic"));
+            ad.setDob(rs.getString("admin_dob"));
+            ad.setEmail(rs.getString("admin_email"));
+            ad.setAge(rs.getInt("admin_age"));
+            ad.setPassword(rs.getString("admin_password"));
+            ad.setBranch(rs.getString("branch"));
+            ad.setType(rs.getString("admin_type"));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return ad;
+    }
+
+    @Override
+    public boolean updateAdmin(admin ad) {
+        int rowsAffected = 0;
+
+        try {
+            rowsAffected = st.executeUpdate("UPDATE `admin` SET admin_name = '" + ad.getName()+ "',admin_address = '" + ad.getAddress() + "',admin_mobile = " + ad.getMobile() + ",admin_nic = '" + ad.getNic() + "',admin_dob = '" + ad.getDob()+ "',"
+                    + "admin_email = '" + ad.getEmail()+ "',admin_age = " + ad.getAge()+ ",branch = '" + ad.getBranch()+ "',admin_type = '" + ad.getType()+ "' WHERE (admin_id  = " + ad.getAdminId()+ ")");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public boolean deleteAdmin(admin ad) {
+        int rowsAffected = 0;
+        try {
+            rowsAffected = st.executeUpdate("delete FROM admin WHERE (admin_id  = " + ad.getAdminId()+ ")");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rowsAffected >0;
     }
 
     @Override
@@ -126,6 +280,98 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
             while (rs.next()) {
                 rowsAffected = rowsAffected + 1;
             }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public boolean addDriver(driver dr) {
+        int rowsAffected = 0;
+        try {
+
+            rowsAffected = st.executeUpdate("INSERT INTO driver (driver_name,driver_address,driver_mobile,driver_nic,driver_dob,driver_email,driver_age,driver_password,branch) VALUES"
+                    + " ('" + dr.getName() + "','" + dr.getAddress() + "'," + dr.getMobile() + ",'" + dr.getNic() + "','" + dr.getDob() + "','" + dr.getEmail() + "','" + dr.getAge() + "','" + dr.getPassword() + "','" + dr.getBranch() + "')");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public List<driver> DriverList() {
+        List<driver> dr = new ArrayList<>();
+        try {
+            String query = "select * from driver";
+            rs = st.executeQuery(query);
+            System.out.println("db work");
+            while (rs.next()) {
+                driver drvr = new driver();
+                drvr.setDriverID(rs.getInt("driver_id"));
+                drvr.setName(rs.getString("driver_name"));
+                drvr.setAddress(rs.getString("driver_address"));
+                drvr.setMobile(rs.getInt("driver_mobile"));
+                drvr.setNic(rs.getString("driver_nic"));
+                drvr.setEmail(rs.getString("driver_dob"));
+                drvr.setBranch(rs.getString("driver_email"));
+                drvr.setAge(rs.getInt("driver_age"));
+                drvr.setPassword(rs.getString("driver_password"));
+                drvr.setBranch(rs.getString("branch"));
+                dr.add(drvr);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return dr;
+    }
+
+    @Override
+    public driver getDriver(int id) {
+        driver dr = new driver();
+
+        try {
+            rs = st.executeQuery("SELECT * FROM driver WHERE (driver_id   = " + id + ")");
+
+            rs.next();
+            dr.setDriverID(rs.getInt("driver_id"));
+            dr.setName(rs.getString("driver_name"));
+            dr.setAddress(rs.getString("driver_address"));
+            dr.setMobile(rs.getInt("driver_mobile"));
+            dr.setNic(rs.getString("driver_nic"));
+            dr.setEmail(rs.getString("driver_dob"));
+            dr.setBranch(rs.getString("driver_email"));
+            dr.setAge(rs.getInt("driver_age"));
+            dr.setPassword(rs.getString("driver_password"));
+            dr.setBranch(rs.getString("branch"));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return dr;
+    }
+
+    @Override
+    public boolean updateDriver(driver dr) {
+        int rowsAffected = 0;
+
+        try {
+            rowsAffected = st.executeUpdate("UPDATE `driver` SET driver_name = '" + dr.getName() + "',driver_address = '" + dr.getAddress() + "',driver_mobile = " + dr.getMobile() + ",driver_nic = '" + dr.getNic() + "',driver_dob = '" + dr.getEmail() + "',driver_email = '" + dr.getEmail() + "',"
+                    + "driver_age = " + dr.getBranch() + ",driver_password = '" + dr.getBranch() + "',branch = '" + dr.getPassword() + "' WHERE (driver_id  = " + dr.getDriverID() + ")");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public boolean deleteDriver(driver dr) {
+        int rowsAffected = 0;
+        try {
+            rowsAffected = st.executeUpdate("delete FROM driver WHERE (driver_id  = " + dr.getDriverID() + ")");
+
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -188,8 +434,8 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         branchCategory bn = new branchCategory();
 
         try {
-            rs = st.executeQuery("SELECT * FROM branch WHERE WHERE (branch_id  = " + id + ")");
-                                
+            rs = st.executeQuery("SELECT * FROM branch WHERE (branch_id  = " + id + ")");
+
             rs.next();
             bn.setBranchId(rs.getInt("branch_id"));
             bn.setLocation(rs.getString("location"));
@@ -218,7 +464,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
         try {
             rowsAffected = st.executeUpdate("delete FROM branch WHERE (branch_id  = " + bn.getBranchId() + ")");
-            
+
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -304,13 +550,13 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
 
         return rowsAffected > 0;
     }
-    
+
     @Override
     public boolean deleteVehicleCategory(vehicleCat vc) {
         int rowsAffected = 0;
         try {
-            rowsAffected = st.executeUpdate("delete FROM vehicategory WHERE (vehicleCat_id  = " + vc.getVehicleCatId()+ ")");
-            
+            rowsAffected = st.executeUpdate("delete FROM vehicategory WHERE (vehicleCat_id  = " + vc.getVehicleCatId() + ")");
+
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -374,12 +620,12 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
 
     @Override
     public vehicle getVehicle(int id) {
-         vehicle vh = new vehicle();
+        vehicle vh = new vehicle();
 
         try {
             rs = st.executeQuery("SELECT * FROM vehicle WHERE vehicle_id =" + id);
             rs.next();
-            
+
             vh.setChasiNo(rs.getString("vehicle_chasiNno"));
             vh.setNoPlate(rs.getString("vehicle_noPlate"));
             vh.setCategory(rs.getString("vehicleCatgory"));
@@ -395,16 +641,12 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
     public boolean deleteVehicle(vehicle vh) {
         int rowsAffected = 0;
         try {
-            rowsAffected = st.executeUpdate("delete FROM vehicle WHERE (vehicle_id  = " + vh.getVehicleId()+ ")");
-            
+            rowsAffected = st.executeUpdate("delete FROM vehicle WHERE (vehicle_id  = " + vh.getVehicleId() + ")");
+
         } catch (Exception e) {
             System.out.println(e);
         }
         return rowsAffected > 0;
     }
-
-    
-
-    
 
 }
