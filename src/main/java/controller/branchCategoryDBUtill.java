@@ -15,7 +15,7 @@ public interface branchCategoryDBUtill {
     public boolean addBranch(branchCategory bn);
     public List<branchCategory> viewBranches();
     public List<branchCategory>branchesList();
-    public branchCategory getBranch(int id);
+    public branchCategory getBranch(String search);
     public boolean updatedBranch(branchCategory bn);
     public boolean deleteBranch(branchCategory bn);
 }

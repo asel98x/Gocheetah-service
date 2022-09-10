@@ -6,6 +6,7 @@ package controller;
 
 import java.util.List;
 import model.driver;
+import model.vehicle;
 
 /**
  *
@@ -15,8 +16,8 @@ public interface driverDBUtill {
     public boolean driverLogin(driver dr);
     public boolean addDriver(driver dr);
     public List<driver>DriverList();
-   public driver getDriver(int id);
-   public boolean updateDriver(driver dr);
-   public boolean deleteDriver(driver dr);
-    
+    public driver getDriver(String search);
+    public boolean updateDriver(driver dr);
+    public boolean deleteDriver(driver dr);
+    public List<vehicle>findDriverVehicleList(String search);
 }

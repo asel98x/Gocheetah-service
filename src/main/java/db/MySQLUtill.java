@@ -107,11 +107,11 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
     }
 
     @Override
-    public customer getCustomer(int id) {
+    public customer getCustomer(String search) {
         customer cs = new customer();
 
         try {
-            rs = st.executeQuery("SELECT * FROM customer WHERE (Customer_id   = " + id + ")");
+            rs = st.executeQuery("SELECT * FROM customer WHERE Customer_id   = " + search + "");
 
             rs.next();
             cs.setCustomerId(rs.getInt("Customer_id"));
@@ -217,11 +217,11 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
     }
 
     @Override
-    public admin getAdmin(int id) {
+    public admin getAdmin(String search) {
         admin ad = new admin();
 
         try {
-            rs = st.executeQuery("SELECT * FROM admin WHERE (admin_id   = " + id + ")");
+            rs = st.executeQuery("SELECT * FROM admin WHERE (admin_id   = " + search + ")");
 
             rs.next();
             ad.setAdminId(rs.getInt("admin_id"));
@@ -246,8 +246,8 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
 
         try {
-            rowsAffected = st.executeUpdate("UPDATE `admin` SET admin_name = '" + ad.getName()+ "',admin_address = '" + ad.getAddress() + "',admin_mobile = " + ad.getMobile() + ",admin_nic = '" + ad.getNic() + "',admin_dob = '" + ad.getDob()+ "',"
-                    + "admin_email = '" + ad.getEmail()+ "',admin_age = " + ad.getAge()+ ",branch = '" + ad.getBranch()+ "',admin_type = '" + ad.getType()+ "' WHERE (admin_id  = " + ad.getAdminId()+ ")");
+            rowsAffected = st.executeUpdate("UPDATE `admin` SET admin_name = '" + ad.getName() + "',admin_address = '" + ad.getAddress() + "',admin_mobile = " + ad.getMobile() + ",admin_nic = '" + ad.getNic() + "',admin_dob = '" + ad.getDob() + "',"
+                    + "admin_email = '" + ad.getEmail() + "',admin_age = " + ad.getAge() + ",branch = '" + ad.getBranch() + "',admin_type = '" + ad.getType() + "' WHERE (admin_id  = " + ad.getAdminId() + ")");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -260,12 +260,12 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
     public boolean deleteAdmin(admin ad) {
         int rowsAffected = 0;
         try {
-            rowsAffected = st.executeUpdate("delete FROM admin WHERE (admin_id  = " + ad.getAdminId()+ ")");
+            rowsAffected = st.executeUpdate("delete FROM admin WHERE (admin_id  = " + ad.getAdminId() + ")");
 
         } catch (Exception e) {
             System.out.println(e);
         }
-        return rowsAffected >0;
+        return rowsAffected > 0;
     }
 
     @Override
@@ -328,11 +328,11 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
     }
 
     @Override
-    public driver getDriver(int id) {
+    public driver getDriver(String search) {
         driver dr = new driver();
 
         try {
-            rs = st.executeQuery("SELECT * FROM driver WHERE (driver_id   = " + id + ")");
+            rs = st.executeQuery("SELECT * FROM driver WHERE (driver_id   = " + search + ")");
 
             rs.next();
             dr.setDriverID(rs.getInt("driver_id"));
@@ -340,8 +340,8 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
             dr.setAddress(rs.getString("driver_address"));
             dr.setMobile(rs.getInt("driver_mobile"));
             dr.setNic(rs.getString("driver_nic"));
-            dr.setEmail(rs.getString("driver_dob"));
-            dr.setBranch(rs.getString("driver_email"));
+            dr.setDob(rs.getString("driver_dob"));
+            dr.setEmail(rs.getString("driver_email"));
             dr.setAge(rs.getInt("driver_age"));
             dr.setPassword(rs.getString("driver_password"));
             dr.setBranch(rs.getString("branch"));
@@ -356,8 +356,8 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
 
         try {
-            rowsAffected = st.executeUpdate("UPDATE `driver` SET driver_name = '" + dr.getName() + "',driver_address = '" + dr.getAddress() + "',driver_mobile = " + dr.getMobile() + ",driver_nic = '" + dr.getNic() + "',driver_dob = '" + dr.getEmail() + "',driver_email = '" + dr.getEmail() + "',"
-                    + "driver_age = " + dr.getBranch() + ",driver_password = '" + dr.getBranch() + "',branch = '" + dr.getPassword() + "' WHERE (driver_id  = " + dr.getDriverID() + ")");
+            rowsAffected = st.executeUpdate("UPDATE `driver` SET driver_name = '" + dr.getName() + "',driver_address = '" + dr.getAddress() + "',driver_mobile = " + dr.getMobile() + ",driver_nic = '" + dr.getNic() + "',driver_dob = '" + dr.getDob()+ "',driver_email = '" + dr.getEmail() + "',"
+                    + "driver_age = " + dr.getAge()+ ",driver_password = '" + dr.getPassword()+ "',branch = '" + dr.getBranch()+ "' WHERE driver_id  = " + dr.getDriverID() + "");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -389,6 +389,25 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
             System.out.println(e);
         }
         return rowsAffected > 0;
+    }
+
+    @Override
+    public List<vehicle> findDriverVehicleList(String search) {
+        List<vehicle> veh = new ArrayList<>();
+        try {
+            rs = st.executeQuery("SELECT * FROM vehicle WHERE driver_id   = " + search + "");
+
+            while (rs.next()) {
+                vehicle vh = new vehicle();
+                vh.setVehicleId(rs.getInt("vehicle_id"));
+                vh.setNoPlate(rs.getString("vehicle_noPlate"));
+                veh.add(vh);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return veh;
     }
 
     @Override
@@ -430,11 +449,11 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
     }
 
     @Override
-    public branchCategory getBranch(int id) {
+    public branchCategory getBranch(String search) {
         branchCategory bn = new branchCategory();
 
         try {
-            rs = st.executeQuery("SELECT * FROM branch WHERE (branch_id  = " + id + ")");
+            rs = st.executeQuery("SELECT * FROM branch WHERE (branch_id = '" + search + "' or location = '" + search + "')");
 
             rs.next();
             bn.setBranchId(rs.getInt("branch_id"));
@@ -523,11 +542,11 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
     }
 
     @Override
-    public vehicleCat getVehicleCategoryh(int id) {
+    public vehicleCat getVehicleCategoryh(String search) {
         vehicleCat vc = new vehicleCat();
 
         try {
-            rs = st.executeQuery("SELECT * FROM vehicategory WHERE vehicleCat_id=" + id);
+            rs = st.executeQuery("SELECT * FROM vehicategory WHERE vehicleCat_id=" + search + " or vehicleCat_category = '" + search + "'");
             rs.next();
             vc.setVehicleCatId(rs.getInt("vehicleCat_id"));
             vc.setVehicleCategory(rs.getString("vehicleCat_category"));
@@ -619,13 +638,16 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
     }
 
     @Override
-    public vehicle getVehicle(int id) {
+    public vehicle getVehicle(String search) {
         vehicle vh = new vehicle();
 
         try {
-            rs = st.executeQuery("SELECT * FROM vehicle WHERE vehicle_id =" + id);
+            rs = st.executeQuery("SELECT * FROM vehicle WHERE vehicle_id = " + search + " or vehicle_chasiNno = '" + search + "' "
+                    + "or vehicle_noPlate = '" + search + "' or driver_id = '" + search + "'");
+
             rs.next();
 
+            vh.setChasiNo(rs.getString("vehicle_id"));
             vh.setChasiNo(rs.getString("vehicle_chasiNno"));
             vh.setNoPlate(rs.getString("vehicle_noPlate"));
             vh.setCategory(rs.getString("vehicleCatgory"));
@@ -635,6 +657,21 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
             System.out.println(e);
         }
         return vh;
+    }
+
+    @Override
+    public boolean updateVehicle(vehicle vh) {
+        int rowsAffected = 0;
+
+        try {
+            rowsAffected = st.executeUpdate("UPDATE `vehicle` SET vehicle_chasiNno = '" + vh.getChasiNo() + "', vehicle_noPlate = '" + vh.getNoPlate() + "',"
+                    + "	branch='" + vh.getBranch() + "', driver_id = '" + vh.getDriver() + "' WHERE (vehicle_id = " + vh.getVehicleId() + ")");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return rowsAffected > 0;
     }
 
     @Override

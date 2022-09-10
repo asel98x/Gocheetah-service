@@ -58,9 +58,9 @@ public class GocheetahWebService {
     }
     
     @WebMethod(operationName = "getCustomer")
-    public customer getCustomer(@WebParam(name = "id") int id) {
+    public customer getCustomer(@WebParam(name = "search") String search) {
         customerDBUtill util = new MySQLUtill();
-        return util.getCustomer(id);
+        return util.getCustomer(search);
     }
     
     @WebMethod(operationName = "updatedCustomer")
@@ -94,9 +94,9 @@ public class GocheetahWebService {
     }
     
     @WebMethod(operationName = "getAdmin")
-    public admin getAdmin(@WebParam(name = "id") int id) {
+    public admin getAdmin(@WebParam(name = "searach") String searach) {
         adminDBUtill util = new MySQLUtill();
-        return util.getAdmin(id);
+        return util.getAdmin(searach);
     }
     
     @WebMethod(operationName = "updateAdmin")
@@ -130,9 +130,9 @@ public class GocheetahWebService {
     }
     
     @WebMethod(operationName = "getDriver")
-    public driver getDriver(@WebParam(name = "id") int id) {
+    public driver getDriver(@WebParam(name = "search") String search) {
         driverDBUtill util = new MySQLUtill();
-        return util.getDriver(id);
+        return util.getDriver(search);
     }
     
     @WebMethod(operationName = "updateDriver")
@@ -145,6 +145,12 @@ public class GocheetahWebService {
     public boolean deleteDriver(@WebParam(name = "cs") driver dr){
         driverDBUtill util = new MySQLUtill();
         return util.deleteDriver(dr);
+    }
+    
+    @WebMethod(operationName = "findDriverVehicleList")
+    public List<vehicle> findDriverVehicleList(@WebParam(name = "search") String search) {
+        driverDBUtill util = new MySQLUtill();
+        return util.findDriverVehicleList(search);
     }
     
     @WebMethod(operationName = "addBranch")
@@ -166,7 +172,7 @@ public class GocheetahWebService {
     }
     
     @WebMethod(operationName = "getBranch")
-    public branchCategory getBranch(@WebParam(name = "bn") int bn) {
+    public branchCategory getBranch(@WebParam(name = "bn") String bn) {
         branchCategoryDBUtill util = new MySQLUtill();
         return util.getBranch(bn);
     }
@@ -203,9 +209,9 @@ public class GocheetahWebService {
     }
     
     @WebMethod(operationName = "getVehicleCategoryh")
-    public vehicleCat getVehicleCategoryh(@WebParam(name = "id") int id) {
+    public vehicleCat getVehicleCategoryh(@WebParam(name = "srch") String srch) {
         vehicleCategoryDBUtill util = new MySQLUtill();
-        return util.getVehicleCategoryh(id);
+        return util.getVehicleCategoryh(srch);
     }
     
     @WebMethod(operationName = "updatedVehicleCategory")
@@ -239,9 +245,15 @@ public class GocheetahWebService {
     }
     
     @WebMethod(operationName = "getVehicle")
-    public vehicle getVehicle(@WebParam(name = "v") int id) {
+    public vehicle getVehicle(@WebParam(name = "search") String search) {
         vehicleDBUtill util = new MySQLUtill();
-        return util.getVehicle(id);
+        return util.getVehicle(search);
+    }
+    
+    @WebMethod(operationName = "updateVehicle")
+    public boolean updateVehicle(@WebParam(name = "vh") vehicle vh) {
+        vehicleDBUtill util = new MySQLUtill();
+        return util.updateVehicle(vh);
     }
     
     @WebMethod(operationName = "deleteVehicle")

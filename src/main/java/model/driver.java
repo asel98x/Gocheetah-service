@@ -11,6 +11,7 @@ package model;
 public class driver extends person{
 
     private int driverID;
+    private String vehicle;
 
     public driver() {
     }
@@ -28,6 +29,15 @@ public class driver extends person{
         this.driverID = driverID;
     }
 
+    public String getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(String vehicle) {
+        this.vehicle = vehicle;
+    }
+
+    
     
     
     

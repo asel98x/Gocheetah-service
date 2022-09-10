@@ -15,7 +15,7 @@ public interface customerDBUtill {
    public boolean customerSignup(customer cs);
    public boolean customerLogin(customer cs);
    public List<customer>customerList();
-   public customer getCustomer(int id);
+   public customer getCustomer(String search);
    public boolean updatedCustomer(customer cs);
    public boolean deleteCustomer(customer cs);
 }

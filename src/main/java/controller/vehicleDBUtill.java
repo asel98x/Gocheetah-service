@@ -15,6 +15,7 @@ public interface vehicleDBUtill {
     public boolean addVehicle(vehicle vh);
     public List<vehicle> viewVehicles();
     public List<vehicle>vehicleList();
-    public vehicle getVehicle(int id);
+    public vehicle getVehicle(String search);
+    public boolean updateVehicle(vehicle vh);
     public boolean deleteVehicle(vehicle vh);
 }

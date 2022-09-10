@@ -15,7 +15,7 @@ public interface adminDBUtill {
     public boolean adminLogin(admin ad);
     public boolean addAdmin(admin ad);
     public List<admin>AdminList();
-   public admin getAdmin(int id);
+   public admin getAdmin(String search);
    public boolean updateAdmin(admin ad);
    public boolean deleteAdmin(admin ad);
 }
