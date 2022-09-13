@@ -13,12 +13,14 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import model.customer;
 import controller.customerDBUtill;
+import controller.destinationDBUtil;
 import controller.driverDBUtill;
 import controller.vehicleCategoryDBUtill;
 import controller.vehicleDBUtill;
 import java.util.List;
 import model.admin;
 import model.branchCategory;
+import model.destination;
 import model.driver;
 import model.vehicle;
 import model.vehicleCat;
@@ -260,5 +262,35 @@ public class GocheetahWebService {
     public boolean deleteVehicle(@WebParam(name = "vh") vehicle vh){
         vehicleDBUtill util = new MySQLUtill();
         return util.deleteVehicle(vh);
+    }
+    
+    @WebMethod(operationName = "addDstination")
+    public boolean addDstination(@WebParam(name = "ds") destination ds){
+        destinationDBUtil util = new MySQLUtill();
+        return util.addDstination(ds);
+    }
+    
+    @WebMethod(operationName = "DstinationList")
+    public List<destination> DstinationList() {
+        destinationDBUtil util = new MySQLUtill();
+        return util.DstinationList();
+    }
+    
+    @WebMethod(operationName = "getDstination")
+    public destination getDstination(@WebParam(name = "search") String search) {
+        destinationDBUtil util = new MySQLUtill();
+        return util.getDstination(search);
+    }
+    
+    @WebMethod(operationName = "updateDstination")
+    public boolean updateDstination(@WebParam(name = "ds") destination ds) {
+        destinationDBUtil util = new MySQLUtill();
+        return util.updateDstination(ds);
+    }
+    
+    @WebMethod(operationName = "deleteDstination")
+    public boolean deleteDstination(@WebParam(name = "ds") destination ds){
+        destinationDBUtil util = new MySQLUtill();
+        return util.deleteDstination(ds);
     }
 }

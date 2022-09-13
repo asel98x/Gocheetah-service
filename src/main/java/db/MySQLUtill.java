@@ -19,6 +19,7 @@ import model.driver;
 import model.vehicle;
 import model.vehicleCategory;
 import controller.customerDBUtill;
+import controller.destinationDBUtil;
 import controller.driverDBUtill;
 import controller.vehicleCategoryDBUtill;
 import controller.vehicleDBUtill;
@@ -27,13 +28,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.destination;
 import model.vehicleCat;
 
 /**
  *
  * @author asel
  */
-public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill, branchCategoryDBUtill, vehicleCategoryDBUtill, vehicleDBUtill {
+public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill, branchCategoryDBUtill, vehicleCategoryDBUtill, vehicleDBUtill, destinationDBUtil {
 
     Connection con = null;
     Statement st = null;
@@ -111,7 +113,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         customer cs = new customer();
 
         try {
-            rs = st.executeQuery("SELECT * FROM customer WHERE Customer_id   = " + search + "");
+            rs = st.executeQuery("SELECT * FROM customer WHERE Customer_id = '" + search + "' or Customer_name = '" + search + "' or Customer_nic = '" + search + "'");
 
             rs.next();
             cs.setCustomerId(rs.getInt("Customer_id"));
@@ -221,7 +223,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         admin ad = new admin();
 
         try {
-            rs = st.executeQuery("SELECT * FROM admin WHERE (admin_id   = " + search + ")");
+            rs = st.executeQuery("SELECT * FROM admin WHERE admin_id = '" + search + "' or admin_name = '" + search + "' or admin_nic = '" + search + "'");
 
             rs.next();
             ad.setAdminId(rs.getInt("admin_id"));
@@ -332,7 +334,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         driver dr = new driver();
 
         try {
-            rs = st.executeQuery("SELECT * FROM driver WHERE (driver_id   = " + search + ")");
+            rs = st.executeQuery("SELECT * FROM driver WHERE driver_id = '" + search + "' or driver_name = '" + search + "' or driver_nic = '" + search + "'");
 
             rs.next();
             dr.setDriverID(rs.getInt("driver_id"));
@@ -356,8 +358,8 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
 
         try {
-            rowsAffected = st.executeUpdate("UPDATE `driver` SET driver_name = '" + dr.getName() + "',driver_address = '" + dr.getAddress() + "',driver_mobile = " + dr.getMobile() + ",driver_nic = '" + dr.getNic() + "',driver_dob = '" + dr.getDob()+ "',driver_email = '" + dr.getEmail() + "',"
-                    + "driver_age = " + dr.getAge()+ ",driver_password = '" + dr.getPassword()+ "',branch = '" + dr.getBranch()+ "' WHERE driver_id  = " + dr.getDriverID() + "");
+            rowsAffected = st.executeUpdate("UPDATE `driver` SET driver_name = '" + dr.getName() + "',driver_address = '" + dr.getAddress() + "',driver_mobile = " + dr.getMobile() + ",driver_nic = '" + dr.getNic() + "',driver_dob = '" + dr.getDob() + "',driver_email = '" + dr.getEmail() + "',"
+                    + "driver_age = " + dr.getAge() + ",driver_password = '" + dr.getPassword() + "',branch = '" + dr.getBranch() + "' WHERE driver_id  = " + dr.getDriverID() + "");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -421,6 +423,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
             while (rs.next()) {
                 branchCategory brnch = new branchCategory();
                 brnch.setLocation(rs.getString("location"));
+
                 bn.add(brnch);
             }
         } catch (Exception e) {
@@ -453,7 +456,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         branchCategory bn = new branchCategory();
 
         try {
-            rs = st.executeQuery("SELECT * FROM branch WHERE (branch_id = '" + search + "' or location = '" + search + "')");
+            rs = st.executeQuery("SELECT * FROM branch WHERE branch_id = '" + search + "' or location = '" + search + "'");
 
             rs.next();
             bn.setBranchId(rs.getInt("branch_id"));
@@ -546,7 +549,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         vehicleCat vc = new vehicleCat();
 
         try {
-            rs = st.executeQuery("SELECT * FROM vehicategory WHERE vehicleCat_id=" + search + " or vehicleCat_category = '" + search + "'");
+            rs = st.executeQuery("SELECT * FROM vehicategory WHERE vehicleCat_id= " + search + " or vehicleCat_category = '" + search + "'");
             rs.next();
             vc.setVehicleCatId(rs.getInt("vehicleCat_id"));
             vc.setVehicleCategory(rs.getString("vehicleCat_category"));
@@ -647,7 +650,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
 
             rs.next();
 
-            vh.setChasiNo(rs.getString("vehicle_id"));
+            vh.setVehicleId(rs.getInt("vehicle_id"));
             vh.setChasiNo(rs.getString("vehicle_chasiNno"));
             vh.setNoPlate(rs.getString("vehicle_noPlate"));
             vh.setCategory(rs.getString("vehicleCatgory"));
@@ -679,6 +682,93 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
         try {
             rowsAffected = st.executeUpdate("delete FROM vehicle WHERE (vehicle_id  = " + vh.getVehicleId() + ")");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public boolean addDstination(destination ds) {
+        int rowsAffected = 0;
+        try {
+
+            rowsAffected = st.executeUpdate("INSERT INTO destination (destination_vehicle,destination_branch,destination_pickup,destination_drop,destination_price) VALUE ('" + ds.getdVehicle() + "', '" + ds.getdBranch() + "', '" + ds.getdPickup() + "', '" + ds.getdDrop() + "',  '" + ds.getdPrice() + "')");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public List<destination> DstinationList() {
+        List<destination> ds = new ArrayList<>();
+        try {
+            String query = "select * from destination";
+            rs = st.executeQuery(query);
+            System.out.println("db work");
+            while (rs.next()) {
+                destination dstn = new destination();
+                dstn.setDestinationID(rs.getInt("destination_id"));
+                dstn.setdVehicle(rs.getString("destination_vehicle"));
+                dstn.setdBranch(rs.getString("destination_branch"));
+                dstn.setdPickup(rs.getString("destination_pickup"));
+                dstn.setdDrop(rs.getString("destination_drop"));
+                dstn.setdPrice(rs.getFloat("destination_price"));
+
+                ds.add(dstn);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return ds;
+    }
+
+    @Override
+    public destination getDstination(String search) {
+        destination dstn = new destination();
+
+        try {
+            rs = st.executeQuery("SELECT * FROM destination WHERE destination_id = '" + search + "' or destination_vehicle = '" + search + "' "
+                    + "or destination_branch = '" + search + "' or destination_pickup = '" + search + "' or destination_price = '" + search + "'");
+
+            rs.next();
+
+            dstn.setDestinationID(rs.getInt("destination_id"));
+            dstn.setdVehicle(rs.getString("destination_vehicle"));
+            dstn.setdBranch(rs.getString("destination_branch"));
+            dstn.setdPickup(rs.getString("destination_pickup"));
+            dstn.setdDrop(rs.getString("destination_drop"));
+            dstn.setdPrice(rs.getFloat("destination_price"));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return dstn;
+    }
+
+    @Override
+    public boolean updateDstination(destination dstn) {
+        int rowsAffected = 0;
+
+        try {
+            rowsAffected = st.executeUpdate("UPDATE `destination` SET destination_vehicle = '" + dstn.getdVehicle()+ "', destination_branch = '" + dstn.getdBranch()+ "',"
+                    + "destination_pickup = '" + dstn.getdPickup()+ "', destination_drop = '" + dstn.getdDrop()+ "',"
+                            + " destination_price = '" + dstn.getdPrice()+ "' WHERE destination_id = " + dstn.getDestinationID()+ "");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public boolean deleteDstination(destination ds) {
+        int rowsAffected = 0;
+        try {
+            rowsAffected = st.executeUpdate("delete FROM destination WHERE destination_id  = " + ds.getDestinationID()+ "");
 
         } catch (Exception e) {
             System.out.println(e);
