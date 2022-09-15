@@ -293,8 +293,8 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
         try {
 
-            rowsAffected = st.executeUpdate("INSERT INTO driver (driver_name,driver_address,driver_mobile,driver_nic,driver_dob,driver_email,driver_age,driver_password,branch) VALUES"
-                    + " ('" + dr.getName() + "','" + dr.getAddress() + "'," + dr.getMobile() + ",'" + dr.getNic() + "','" + dr.getDob() + "','" + dr.getEmail() + "','" + dr.getAge() + "','" + dr.getPassword() + "','" + dr.getBranch() + "')");
+            rowsAffected = st.executeUpdate("INSERT INTO driver (driver_name,driver_address,driver_mobile,driver_nic,driver_licence,driver_dob,driver_email,driver_age,driver_password,branch) VALUES"
+                    + " ('" + dr.getName() + "','" + dr.getAddress() + "'," + dr.getMobile() + ",'" + dr.getNic() + "','" + dr.getLicence()+ "','" + dr.getDob() + "','" + dr.getEmail() + "','" + dr.getAge() + "','" + dr.getPassword() + "','" + dr.getBranch() + "')");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -342,6 +342,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
             dr.setAddress(rs.getString("driver_address"));
             dr.setMobile(rs.getInt("driver_mobile"));
             dr.setNic(rs.getString("driver_nic"));
+            dr.setLicence(rs.getString("driver_licence"));
             dr.setDob(rs.getString("driver_dob"));
             dr.setEmail(rs.getString("driver_email"));
             dr.setAge(rs.getInt("driver_age"));
@@ -498,7 +499,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
         try {
 
-            rowsAffected = st.executeUpdate("INSERT INTO vehiCategory (vehicleCat_category) VALUE ('" + vc.getVehicleCategory() + "')");
+            rowsAffected = st.executeUpdate("INSERT INTO vehiCategory (vehicleCat_category, vehicleCat_precentage) VALUE ('" + vc.getVehicleCategory() + "','" + vc.getPresentage()+ "')");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -510,13 +511,14 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
     public List<vehicleCat> viewVehicleCateories() {
         List<vehicleCat> vc = new ArrayList<>();
         try {
-            String query = "SELECT vehicleCat_category   FROM `vehicategory` ";
+            String query = "SELECT vehicleCat_category, vehicleCat_precentage FROM `vehicategory` ";
             rs = st.executeQuery(query);
             System.out.println("db work");
 
             while (rs.next()) {
                 vehicleCat vehi = new vehicleCat();
                 vehi.setVehicleCategory(rs.getString("vehicleCat_category"));
+                vehi.setPresentage(rs.getString("vehicleCat_precentage"));
                 vc.add(vehi);
             }
         } catch (Exception e) {
@@ -536,6 +538,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
                 vehicleCat vehi = new vehicleCat();
                 vehi.setVehicleCatId(rs.getInt("vehicleCat_id"));
                 vehi.setVehicleCategory(rs.getString("vehicleCat_category"));
+                vehi.setPresentage(rs.getString("vehicleCat_precentage"));
                 vc.add(vehi);
             }
         } catch (Exception e) {
@@ -564,7 +567,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
 
         try {
-            rowsAffected = st.executeUpdate("UPDATE `vehicategory` SET `vehicleCat_category` = '" + vc.getVehicleCategory() + "' WHERE (vehicleCat_id = " + vc.getVehicleCatId() + ")");
+            rowsAffected = st.executeUpdate("UPDATE `vehicategory` SET `vehicleCat_category` = '" + vc.getVehicleCategory() + "', vehicleCat_precentage = '" + vc.getPresentage()+ "' WHERE (vehicleCat_id = " + vc.getVehicleCatId() + ")");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -590,7 +593,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
         try {
 
-            rowsAffected = st.executeUpdate("INSERT INTO vehicle (vehicle_chasiNno,vehicle_noPlate,vehicleCatgory,branch,driver_id) VALUE ('" + vh.getChasiNo() + "', '" + vh.getNoPlate() + "', '" + vh.getCategory() + "', '" + vh.getBranch() + "',  '" + vh.getDriver() + "')");
+            rowsAffected = st.executeUpdate("INSERT INTO vehicle (vehicle_name,vehicle_chasiNno,vehicle_noPlate,vehicleCatgory,vehicle_type,vehicle_passengers,branch,driver_id,vehicle_availability) VALUE ('" + vh.getVehicleName()+ "','" + vh.getChasiNo() + "', '" + vh.getNoPlate() + "', '" + vh.getCategory() + "', '" + vh.getType()+ "', '" + vh.getPassengers()+ "', '" + vh.getBranch() + "', '" + vh.getDriver() + "', '" + vh.getAvailability()+ "')");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -626,12 +629,14 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
             System.out.println("db work");
             while (rs.next()) {
                 vehicle vhcl = new vehicle();
+                vhcl.setVehicleName(rs.getString("vehicle_name"));
                 vhcl.setVehicleId(rs.getInt("vehicle_id"));
                 vhcl.setChasiNo(rs.getString("vehicle_chasiNno"));
                 vhcl.setNoPlate(rs.getString("vehicle_noPlate"));
                 vhcl.setCategory(rs.getString("vehicleCatgory"));
                 vhcl.setBranch(rs.getString("branch"));
                 vhcl.setDriver(rs.getString("driver_id"));
+                vhcl.setAvailability(rs.getString("vehicle_availability"));
                 vh.add(vhcl);
             }
         } catch (Exception e) {
@@ -650,12 +655,16 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
 
             rs.next();
 
+            vh.setVehicleName(rs.getString("vehicle_name"));
             vh.setVehicleId(rs.getInt("vehicle_id"));
             vh.setChasiNo(rs.getString("vehicle_chasiNno"));
             vh.setNoPlate(rs.getString("vehicle_noPlate"));
+            vh.setType(rs.getString("vehicle_type"));
             vh.setCategory(rs.getString("vehicleCatgory"));
+            vh.setPassengers(rs.getString("vehicle_passengers"));
             vh.setBranch(rs.getString("branch"));
             vh.setDriver(rs.getString("driver_id"));
+            vh.setAvailability(rs.getString("vehicle_availability"));
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -667,8 +676,8 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
 
         try {
-            rowsAffected = st.executeUpdate("UPDATE `vehicle` SET vehicle_chasiNno = '" + vh.getChasiNo() + "', vehicle_noPlate = '" + vh.getNoPlate() + "',"
-                    + "	branch='" + vh.getBranch() + "', driver_id = '" + vh.getDriver() + "' WHERE (vehicle_id = " + vh.getVehicleId() + ")");
+            rowsAffected = st.executeUpdate("UPDATE `vehicle` SET vehicle_name = '" + vh.getVehicleName()+ "', vehicle_chasiNno = '" + vh.getChasiNo() + "', vehicle_noPlate = '" + vh.getNoPlate() + "',"
+                    + "	branch='" + vh.getBranch() + "', vehicle_type = '" + vh.getType()+ "', vehicleCatgory = '" + vh.getCategory()+ "', vehicle_passengers = '" + vh.getPassengers()+ "', driver_id = '" + vh.getDriver() + "', vehicle_availability = '" + vh.getAvailability()+ "' WHERE (vehicle_id = " + vh.getVehicleId() + ")");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -694,12 +703,34 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
         try {
 
-            rowsAffected = st.executeUpdate("INSERT INTO destination (destination_vehicle,destination_branch,destination_pickup,destination_drop,destination_price) VALUE ('" + ds.getdVehicle() + "', '" + ds.getdBranch() + "', '" + ds.getdPickup() + "', '" + ds.getdDrop() + "',  '" + ds.getdPrice() + "')");
+            rowsAffected = st.executeUpdate("INSERT INTO destination (destination_branch,destination_pickup,destination_drop,distance) VALUE ('" + ds.getdBranch() + "', '" + ds.getdPickup() + "', '" + ds.getdDrop() + "',  '" + ds.getDistance()+ "')");
 
         } catch (Exception e) {
             System.out.println(e);
         }
         return rowsAffected > 0;
+    }
+    
+    @Override
+    public List<destination> viewDstination() {
+        List<destination> ds = new ArrayList<>();
+        try {
+            String query = "SELECT destination_branch, destination_pickup, destination_drop, distance FROM destination ";
+            rs = st.executeQuery(query);
+            System.out.println("db work");
+
+            while (rs.next()) {
+                destination dstn = new destination();
+                dstn.setdBranch(rs.getString("destination_branch"));
+                dstn.setdPickup(rs.getString("destination_pickup"));
+                dstn.setdDrop(rs.getString("destination_drop"));
+                dstn.setDistance(rs.getInt("distance"));
+                ds.add(dstn);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return ds;
     }
 
     @Override
@@ -712,11 +743,10 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
             while (rs.next()) {
                 destination dstn = new destination();
                 dstn.setDestinationID(rs.getInt("destination_id"));
-                dstn.setdVehicle(rs.getString("destination_vehicle"));
                 dstn.setdBranch(rs.getString("destination_branch"));
                 dstn.setdPickup(rs.getString("destination_pickup"));
                 dstn.setdDrop(rs.getString("destination_drop"));
-                dstn.setdPrice(rs.getFloat("destination_price"));
+                dstn.setDistance(rs.getInt("distance"));
 
                 ds.add(dstn);
             }
@@ -731,17 +761,16 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         destination dstn = new destination();
 
         try {
-            rs = st.executeQuery("SELECT * FROM destination WHERE destination_id = '" + search + "' or destination_vehicle = '" + search + "' "
-                    + "or destination_branch = '" + search + "' or destination_pickup = '" + search + "' or destination_price = '" + search + "'");
+            rs = st.executeQuery("SELECT * FROM destination WHERE destination_id = '" + search + "' "
+                    + "or destination_branch = '" + search + "' or destination_pickup = '" + search + "' or destination_drop = '" + search + "'");
 
             rs.next();
 
             dstn.setDestinationID(rs.getInt("destination_id"));
-            dstn.setdVehicle(rs.getString("destination_vehicle"));
             dstn.setdBranch(rs.getString("destination_branch"));
             dstn.setdPickup(rs.getString("destination_pickup"));
             dstn.setdDrop(rs.getString("destination_drop"));
-            dstn.setdPrice(rs.getFloat("destination_price"));
+            dstn.setDistance(rs.getInt("distance"));
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -753,9 +782,9 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
 
         try {
-            rowsAffected = st.executeUpdate("UPDATE `destination` SET destination_vehicle = '" + dstn.getdVehicle()+ "', destination_branch = '" + dstn.getdBranch()+ "',"
+            rowsAffected = st.executeUpdate("UPDATE `destination` SET  destination_branch = '" + dstn.getdBranch()+ "',"
                     + "destination_pickup = '" + dstn.getdPickup()+ "', destination_drop = '" + dstn.getdDrop()+ "',"
-                            + " destination_price = '" + dstn.getdPrice()+ "' WHERE destination_id = " + dstn.getDestinationID()+ "");
+                            + " distance = '" + dstn.getDistance()+ "' WHERE destination_id = " + dstn.getDestinationID()+ "");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -775,5 +804,48 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         }
         return rowsAffected > 0;
     }
+
+    @Override
+    public destination getDistance(String pick, String drop) {
+        destination dstn = new destination();
+
+        try {
+            rs = st.executeQuery("SELECT distance FROM destination WHERE destination_pickup = '" + pick + "' "
+                    + "and destination_drop = '" + drop + "'");
+
+            rs.next();
+
+            dstn.setDestinationID(rs.getInt("destination_id"));
+            dstn.setdBranch(rs.getString("destination_branch"));
+            dstn.setdPickup(rs.getString("destination_pickup"));
+            dstn.setdDrop(rs.getString("destination_drop"));
+            dstn.setDistance(rs.getInt("distance"));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return dstn;
+    }
+
+    @Override
+    public destination getLocations(String search) {
+        destination dstn = new destination();
+
+        try {
+            rs = st.executeQuery("SELECT destination_pickup, destination_drop FROM `destination` WHERE destination_branch ='"+search+"'");
+
+            rs.next();
+
+            dstn.setDestinationID(rs.getInt("destination_id"));
+            dstn.setdBranch(rs.getString("destination_branch"));
+            dstn.setdPickup(rs.getString("destination_pickup"));
+            dstn.setdDrop(rs.getString("destination_drop"));
+            dstn.setDistance(rs.getInt("distance"));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return dstn;
+    }
+
+    
 
 }

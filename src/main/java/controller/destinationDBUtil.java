@@ -13,9 +13,11 @@ import model.destination;
  */
 public interface destinationDBUtil {
     public boolean addDstination(destination ds);
-    //public List<destination> viewDstination();
+    public List<destination> viewDstination();
     public List<destination>DstinationList();
     public destination getDstination(String search);
     public boolean updateDstination(destination vh);
     public boolean deleteDstination(destination vh);
+    public destination getDistance(String pick, String drop);
+    public destination getLocations(String search);
 }

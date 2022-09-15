@@ -10,22 +10,30 @@ package model;
  */
 public class vehicle{
     private int vehicleId;
+    private String vehicleName;
     private String ChasiNo;
     private String NoPlate;
     private String Category;
+    private String type;
+    private String passengers;
     private String branch;
     private String driver;
+    private String availability;
 
     public vehicle() {
     }
 
-    public vehicle(int vehicleId, String ChasiNo, String NoPlate, String Category, String branch, String driver) {
+    public vehicle(int vehicleId, String vehicleName, String ChasiNo, String NoPlate, String Category, String type, String passengers, String branch, String driver, String availability) {
         this.vehicleId = vehicleId;
+        this.vehicleName = vehicleName;
         this.ChasiNo = ChasiNo;
         this.NoPlate = NoPlate;
         this.Category = Category;
+        this.type = type;
+        this.passengers = passengers;
         this.branch = branch;
         this.driver = driver;
+        this.availability = availability;
     }
 
     public int getVehicleId() {
@@ -34,6 +42,14 @@ public class vehicle{
 
     public void setVehicleId(int vehicleId) {
         this.vehicleId = vehicleId;
+    }
+
+    public String getVehicleName() {
+        return vehicleName;
+    }
+
+    public void setVehicleName(String vehicleName) {
+        this.vehicleName = vehicleName;
     }
 
     public String getChasiNo() {
@@ -60,6 +76,22 @@ public class vehicle{
         this.Category = Category;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(String passengers) {
+        this.passengers = passengers;
+    }
+
     public String getBranch() {
         return branch;
     }
@@ -75,6 +107,22 @@ public class vehicle{
     public void setDriver(String driver) {
         this.driver = driver;
     }
+
+    public String getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(String availability) {
+        this.availability = availability;
+    }
+
+    
+
+    
+
+    
+
+    
 
    
     

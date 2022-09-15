@@ -10,22 +10,20 @@ package model;
  */
 public class destination {
     private int destinationID;
-    private String dVehicle;
     private String dBranch;
     private String dPickup;
     private String dDrop;
-    private float dPrice;
+    private int distance;
 
     public destination() {
     }
 
-    public destination(int destinationID, String dVehicle, String dBranch, String dPickup, String dDrop, float dPrice) {
+    public destination(int destinationID, String dBranch, String dPickup, String dDrop, int distance) {
         this.destinationID = destinationID;
-        this.dVehicle = dVehicle;
         this.dBranch = dBranch;
         this.dPickup = dPickup;
         this.dDrop = dDrop;
-        this.dPrice = dPrice;
+        this.distance = distance;
     }
 
     public int getDestinationID() {
@@ -34,14 +32,6 @@ public class destination {
 
     public void setDestinationID(int destinationID) {
         this.destinationID = destinationID;
-    }
-
-    public String getdVehicle() {
-        return dVehicle;
-    }
-
-    public void setdVehicle(String dVehicle) {
-        this.dVehicle = dVehicle;
     }
 
     public String getdBranch() {
@@ -68,14 +58,15 @@ public class destination {
         this.dDrop = dDrop;
     }
 
-    public float getdPrice() {
-        return dPrice;
+    public int getDistance() {
+        return distance;
     }
 
-    public void setdPrice(float dPrice) {
-        this.dPrice = dPrice;
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 
+   
     
     
 }

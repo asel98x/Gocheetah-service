@@ -11,13 +11,15 @@ package model;
 public class vehicleCat {
     private int vehicleCatId;
     private String vehicleCategory;
-
-    public vehicleCat(int vehicleCatId, String vehicleCategory) {
-        this.vehicleCatId = vehicleCatId;
-        this.vehicleCategory = vehicleCategory;
-    }
+    private String presentage;
 
     public vehicleCat() {
+    }
+
+    public vehicleCat(int vehicleCatId, String vehicleCategory, String presentage) {
+        this.vehicleCatId = vehicleCatId;
+        this.vehicleCategory = vehicleCategory;
+        this.presentage = presentage;
     }
 
     public int getVehicleCatId() {
@@ -35,6 +37,17 @@ public class vehicleCat {
     public void setVehicleCategory(String vehicleCategory) {
         this.vehicleCategory = vehicleCategory;
     }
+
+    public String getPresentage() {
+        return presentage;
+    }
+
+    public void setPresentage(String presentage) {
+        this.presentage = presentage;
+    }
+
+    
+    
     
     
 }

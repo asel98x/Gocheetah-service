@@ -11,14 +11,17 @@ package model;
 public class driver extends person{
 
     private int driverID;
+    private String licence;
     private String vehicle;
 
     public driver() {
     }
 
-    public driver(int driverID, String name, String address, int mobile, String nic, String dob, int age, String email, String branch, String password) {
+    public driver(int driverID, String licence, String vehicle, String name, String address, int mobile, String nic, String dob, int age, String email, String branch, String password) {
         super(name, address, mobile, nic, dob, age, email, branch, password);
         this.driverID = driverID;
+        this.licence = licence;
+        this.vehicle = vehicle;
     }
 
     public int getDriverID() {
@@ -29,6 +32,14 @@ public class driver extends person{
         this.driverID = driverID;
     }
 
+    public String getLicence() {
+        return licence;
+    }
+
+    public void setLicence(String licence) {
+        this.licence = licence;
+    }
+
     public String getVehicle() {
         return vehicle;
     }
@@ -36,6 +47,8 @@ public class driver extends person{
     public void setVehicle(String vehicle) {
         this.vehicle = vehicle;
     }
+
+    
 
     
     

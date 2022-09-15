@@ -270,6 +270,12 @@ public class GocheetahWebService {
         return util.addDstination(ds);
     }
     
+    @WebMethod(operationName = "viewDstination")
+    public List<destination> viewDstination(){
+        destinationDBUtil util = new MySQLUtill();
+        return util.viewDstination();
+    }
+    
     @WebMethod(operationName = "DstinationList")
     public List<destination> DstinationList() {
         destinationDBUtil util = new MySQLUtill();
@@ -292,5 +298,17 @@ public class GocheetahWebService {
     public boolean deleteDstination(@WebParam(name = "ds") destination ds){
         destinationDBUtil util = new MySQLUtill();
         return util.deleteDstination(ds);
+    }
+    
+    @WebMethod(operationName = "getDistance")
+    public destination getDistance(@WebParam(name = "search") String pick, String drop) {
+        destinationDBUtil util = new MySQLUtill();
+        return util.getDistance(pick,drop);
+    }
+    
+    @WebMethod(operationName = "getLocations")
+    public destination getLocations(@WebParam(name = "search") String search) {
+        destinationDBUtil util = new MySQLUtill();
+        return util.getLocations(search);
     }
 }
