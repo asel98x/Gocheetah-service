@@ -19,5 +19,6 @@ public interface destinationDBUtil {
     public boolean updateDstination(destination vh);
     public boolean deleteDstination(destination vh);
     public destination getDistance(String pick, String drop);
-    public destination getLocations(String search);
+    public destination getLocations(String search); //find pickup and drop locations by search branch
+    public List<destination>getDestiations(String branch);
 }

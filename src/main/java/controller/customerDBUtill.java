@@ -13,7 +13,7 @@ import model.customer;
  */
 public interface customerDBUtill {
    public boolean customerSignup(customer cs);
-   public boolean customerLogin(customer cs);
+   public customer customerLogin(customer cs);
    public List<customer>customerList();
    public customer getCustomer(String search);
    public boolean updatedCustomer(customer cs);

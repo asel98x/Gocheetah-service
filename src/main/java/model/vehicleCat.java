@@ -11,12 +11,12 @@ package model;
 public class vehicleCat {
     private int vehicleCatId;
     private String vehicleCategory;
-    private String presentage;
+    private float presentage;
 
     public vehicleCat() {
     }
 
-    public vehicleCat(int vehicleCatId, String vehicleCategory, String presentage) {
+    public vehicleCat(int vehicleCatId, String vehicleCategory, float presentage) {
         this.vehicleCatId = vehicleCatId;
         this.vehicleCategory = vehicleCategory;
         this.presentage = presentage;
@@ -38,13 +38,15 @@ public class vehicleCat {
         this.vehicleCategory = vehicleCategory;
     }
 
-    public String getPresentage() {
+    public float getPresentage() {
         return presentage;
     }
 
-    public void setPresentage(String presentage) {
+    public void setPresentage(float presentage) {
         this.presentage = presentage;
     }
+
+    
 
     
     

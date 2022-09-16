@@ -48,7 +48,7 @@ public class GocheetahWebService {
     }
     
     @WebMethod(operationName = "customerLogin")
-    public boolean customerLogin(@WebParam(name = "cs") customer cs){
+    public customer customerLogin(@WebParam(name = "cs") customer cs){
         customerDBUtill util = new MySQLUtill();
         return util.customerLogin(cs);
     }
@@ -310,5 +310,11 @@ public class GocheetahWebService {
     public destination getLocations(@WebParam(name = "search") String search) {
         destinationDBUtil util = new MySQLUtill();
         return util.getLocations(search);
+    }
+    
+    @WebMethod(operationName = "getDestiations")
+    public List<destination> getDestiations(@WebParam(name = "branch") String branch) {
+        destinationDBUtil util = new MySQLUtill();
+        return util.getDestiations(branch);
     }
 }

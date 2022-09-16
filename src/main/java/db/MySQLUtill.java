@@ -6,6 +6,7 @@ package db;
 
 import connection.dbConnection;
 import controller.adminDBUtill;
+import controller.bookingDBUtill;
 import controller.branchCategoryDBUtill;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.booking;
 import model.destination;
 import model.vehicleCat;
 
@@ -35,7 +37,7 @@ import model.vehicleCat;
  *
  * @author asel
  */
-public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill, branchCategoryDBUtill, vehicleCategoryDBUtill, vehicleDBUtill, destinationDBUtil {
+public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill, branchCategoryDBUtill, vehicleCategoryDBUtill, vehicleDBUtill, destinationDBUtil, bookingDBUtill {
 
     Connection con = null;
     Statement st = null;
@@ -66,21 +68,32 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
     }
 
     @Override
-    public boolean customerLogin(customer cs) {
+    public customer customerLogin(customer cs) {
         int rowsAffected = 0;
 
         try {
-            String query = "select * from customer where Customer_mobile = " + cs.getMobile() + " and Customer_password = '" + cs.getPassword() + "'";
+            String query = "select * from customer where Customer_mobile = " + cs.getMobile() + "  and Customer_password = '" + cs.getPassword() + "'";
             rs = st.executeQuery(query);
             System.out.println("db work");
 
-            while (rs.next()) {
-                rowsAffected = rowsAffected + 1;
+            if (rs.next()) {
+                cs.setCustomerId(rs.getInt("Customer_id"));
+                cs.setName(rs.getString("Customer_name"));
+                cs.setAddress(rs.getString("Customer_address"));
+                cs.setMobile(rs.getInt("Customer_mobile"));
+                cs.setNic(rs.getString("Customer_nic"));
+                cs.setEmail(rs.getString("Customer_email"));
+                cs.setBranch(rs.getString("Customer_branch"));
+                cs.setPassword(rs.getString("Customer_password"));
+                return cs;
+            }else{
+                return null;
             }
+            
         } catch (Exception e) {
             System.out.println(e);
         }
-        return rowsAffected > 0;
+        return null;
     }
 
     @Override
@@ -113,7 +126,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         customer cs = new customer();
 
         try {
-            rs = st.executeQuery("SELECT * FROM customer WHERE Customer_id = '" + search + "' or Customer_name = '" + search + "' or Customer_nic = '" + search + "'");
+            rs = st.executeQuery("SELECT * FROM customer WHERE Customer_id = '" + search + "' or Customer_mobile = '" + search + "' or Customer_name = '" + search + "' or Customer_nic = '" + search + "'");
 
             rs.next();
             cs.setCustomerId(rs.getInt("Customer_id"));
@@ -294,7 +307,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         try {
 
             rowsAffected = st.executeUpdate("INSERT INTO driver (driver_name,driver_address,driver_mobile,driver_nic,driver_licence,driver_dob,driver_email,driver_age,driver_password,branch) VALUES"
-                    + " ('" + dr.getName() + "','" + dr.getAddress() + "'," + dr.getMobile() + ",'" + dr.getNic() + "','" + dr.getLicence()+ "','" + dr.getDob() + "','" + dr.getEmail() + "','" + dr.getAge() + "','" + dr.getPassword() + "','" + dr.getBranch() + "')");
+                    + " ('" + dr.getName() + "','" + dr.getAddress() + "'," + dr.getMobile() + ",'" + dr.getNic() + "','" + dr.getLicence() + "','" + dr.getDob() + "','" + dr.getEmail() + "','" + dr.getAge() + "','" + dr.getPassword() + "','" + dr.getBranch() + "')");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -499,7 +512,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
         try {
 
-            rowsAffected = st.executeUpdate("INSERT INTO vehiCategory (vehicleCat_category, vehicleCat_precentage) VALUE ('" + vc.getVehicleCategory() + "','" + vc.getPresentage()+ "')");
+            rowsAffected = st.executeUpdate("INSERT INTO vehiCategory (vehicleCat_category, vehicleCat_precentage) VALUE ('" + vc.getVehicleCategory() + "','" + vc.getPresentage() + "')");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -518,7 +531,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
             while (rs.next()) {
                 vehicleCat vehi = new vehicleCat();
                 vehi.setVehicleCategory(rs.getString("vehicleCat_category"));
-                vehi.setPresentage(rs.getString("vehicleCat_precentage"));
+                vehi.setPresentage(rs.getFloat("vehicleCat_precentage"));
                 vc.add(vehi);
             }
         } catch (Exception e) {
@@ -538,7 +551,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
                 vehicleCat vehi = new vehicleCat();
                 vehi.setVehicleCatId(rs.getInt("vehicleCat_id"));
                 vehi.setVehicleCategory(rs.getString("vehicleCat_category"));
-                vehi.setPresentage(rs.getString("vehicleCat_precentage"));
+                vehi.setPresentage(rs.getFloat("vehicleCat_precentage"));
                 vc.add(vehi);
             }
         } catch (Exception e) {
@@ -552,10 +565,11 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         vehicleCat vc = new vehicleCat();
 
         try {
-            rs = st.executeQuery("SELECT * FROM vehicategory WHERE vehicleCat_id= " + search + " or vehicleCat_category = '" + search + "'");
+            rs = st.executeQuery("SELECT * FROM vehicategory WHERE vehicleCat_id= '" + search + "' or vehicleCat_category = '" + search + "' or vehicleCat_precentage = '" + search + "'");
             rs.next();
             vc.setVehicleCatId(rs.getInt("vehicleCat_id"));
             vc.setVehicleCategory(rs.getString("vehicleCat_category"));
+            vc.setPresentage(rs.getFloat("vehicleCat_precentage"));
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -567,7 +581,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
 
         try {
-            rowsAffected = st.executeUpdate("UPDATE `vehicategory` SET `vehicleCat_category` = '" + vc.getVehicleCategory() + "', vehicleCat_precentage = '" + vc.getPresentage()+ "' WHERE (vehicleCat_id = " + vc.getVehicleCatId() + ")");
+            rowsAffected = st.executeUpdate("UPDATE `vehicategory` SET `vehicleCat_category` = '" + vc.getVehicleCategory() + "', vehicleCat_precentage = '" + vc.getPresentage() + "' WHERE (vehicleCat_id = " + vc.getVehicleCatId() + ")");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -593,7 +607,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
         try {
 
-            rowsAffected = st.executeUpdate("INSERT INTO vehicle (vehicle_name,vehicle_chasiNno,vehicle_noPlate,vehicleCatgory,vehicle_type,vehicle_passengers,branch,driver_id,vehicle_availability) VALUE ('" + vh.getVehicleName()+ "','" + vh.getChasiNo() + "', '" + vh.getNoPlate() + "', '" + vh.getCategory() + "', '" + vh.getType()+ "', '" + vh.getPassengers()+ "', '" + vh.getBranch() + "', '" + vh.getDriver() + "', '" + vh.getAvailability()+ "')");
+            rowsAffected = st.executeUpdate("INSERT INTO vehicle (vehicle_name,vehicle_chasiNno,vehicle_noPlate,vehicleCatgory,vehicle_type,vehicle_passengers,branch,driver_id,vehicle_availability) VALUE ('" + vh.getVehicleName() + "','" + vh.getChasiNo() + "', '" + vh.getNoPlate() + "', '" + vh.getCategory() + "', '" + vh.getType() + "', '" + vh.getPassengers() + "', '" + vh.getBranch() + "', '" + vh.getDriver() + "', '" + vh.getAvailability() + "')");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -634,6 +648,8 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
                 vhcl.setChasiNo(rs.getString("vehicle_chasiNno"));
                 vhcl.setNoPlate(rs.getString("vehicle_noPlate"));
                 vhcl.setCategory(rs.getString("vehicleCatgory"));
+                vhcl.setType(rs.getString("vehicle_type"));
+                vhcl.setPassengers(rs.getString("vehicle_passengers"));
                 vhcl.setBranch(rs.getString("branch"));
                 vhcl.setDriver(rs.getString("driver_id"));
                 vhcl.setAvailability(rs.getString("vehicle_availability"));
@@ -676,8 +692,8 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
 
         try {
-            rowsAffected = st.executeUpdate("UPDATE `vehicle` SET vehicle_name = '" + vh.getVehicleName()+ "', vehicle_chasiNno = '" + vh.getChasiNo() + "', vehicle_noPlate = '" + vh.getNoPlate() + "',"
-                    + "	branch='" + vh.getBranch() + "', vehicle_type = '" + vh.getType()+ "', vehicleCatgory = '" + vh.getCategory()+ "', vehicle_passengers = '" + vh.getPassengers()+ "', driver_id = '" + vh.getDriver() + "', vehicle_availability = '" + vh.getAvailability()+ "' WHERE (vehicle_id = " + vh.getVehicleId() + ")");
+            rowsAffected = st.executeUpdate("UPDATE `vehicle` SET vehicle_name = '" + vh.getVehicleName() + "', vehicle_chasiNno = '" + vh.getChasiNo() + "', vehicle_noPlate = '" + vh.getNoPlate() + "',"
+                    + "	branch='" + vh.getBranch() + "', vehicle_type = '" + vh.getType() + "', vehicleCatgory = '" + vh.getCategory() + "', vehicle_passengers = '" + vh.getPassengers() + "', driver_id = '" + vh.getDriver() + "', vehicle_availability = '" + vh.getAvailability() + "' WHERE (vehicle_id = " + vh.getVehicleId() + ")");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -703,14 +719,14 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
         try {
 
-            rowsAffected = st.executeUpdate("INSERT INTO destination (destination_branch,destination_pickup,destination_drop,distance) VALUE ('" + ds.getdBranch() + "', '" + ds.getdPickup() + "', '" + ds.getdDrop() + "',  '" + ds.getDistance()+ "')");
+            rowsAffected = st.executeUpdate("INSERT INTO destination (destination_branch,destination_pickup,destination_drop,distance) VALUE ('" + ds.getdBranch() + "', '" + ds.getdPickup() + "', '" + ds.getdDrop() + "',  '" + ds.getDistance() + "')");
 
         } catch (Exception e) {
             System.out.println(e);
         }
         return rowsAffected > 0;
     }
-    
+
     @Override
     public List<destination> viewDstination() {
         List<destination> ds = new ArrayList<>();
@@ -782,9 +798,9 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
 
         try {
-            rowsAffected = st.executeUpdate("UPDATE `destination` SET  destination_branch = '" + dstn.getdBranch()+ "',"
-                    + "destination_pickup = '" + dstn.getdPickup()+ "', destination_drop = '" + dstn.getdDrop()+ "',"
-                            + " distance = '" + dstn.getDistance()+ "' WHERE destination_id = " + dstn.getDestinationID()+ "");
+            rowsAffected = st.executeUpdate("UPDATE `destination` SET  destination_branch = '" + dstn.getdBranch() + "',"
+                    + "destination_pickup = '" + dstn.getdPickup() + "', destination_drop = '" + dstn.getdDrop() + "',"
+                    + " distance = '" + dstn.getDistance() + "' WHERE destination_id = " + dstn.getDestinationID() + "");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -797,7 +813,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
     public boolean deleteDstination(destination ds) {
         int rowsAffected = 0;
         try {
-            rowsAffected = st.executeUpdate("delete FROM destination WHERE destination_id  = " + ds.getDestinationID()+ "");
+            rowsAffected = st.executeUpdate("delete FROM destination WHERE destination_id  = " + ds.getDestinationID() + "");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -831,7 +847,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         destination dstn = new destination();
 
         try {
-            rs = st.executeQuery("SELECT destination_pickup, destination_drop FROM `destination` WHERE destination_branch ='"+search+"'");
+            rs = st.executeQuery("SELECT destination_pickup, destination_drop FROM `destination` WHERE destination_branch ='" + search + "'");
 
             rs.next();
 
@@ -844,6 +860,131 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
             System.out.println(e);
         }
         return dstn;
+    }
+    
+    @Override
+    public List<destination> getDestiations(String branch) {
+        List<destination> ds = new ArrayList<>();
+        try {
+            String query = "select * from destination where destination_branch = '"+branch+"'";
+            rs = st.executeQuery(query);
+            System.out.println("db work");
+            while (rs.next()) {
+                destination dstn = new destination();
+                dstn.setDestinationID(rs.getInt("destination_id"));
+                dstn.setdBranch(rs.getString("destination_branch"));
+                dstn.setdPickup(rs.getString("destination_pickup"));
+                dstn.setdDrop(rs.getString("destination_drop"));
+                dstn.setDistance(rs.getInt("distance"));
+
+                ds.add(dstn);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return ds;
+    }
+
+    @Override
+    public boolean addBooking(booking bk) {
+        int rowsAffected = 0;
+        try {
+
+            rowsAffected = st.executeUpdate("INSERT INTO booking (customerID,customerName,customerAddress,"
+                    + "customerMobile,customerEmail,branch,driverId,vehicleId,pickupLocation,dropLocation,price,"
+                    + "time,date)"
+                    + " VALUE ('" + bk.getCustomerId() + "', '" + bk.getCustomerName() + "', "
+                    + "'" + bk.getCustomerAddress() + "', '" + bk.getCustomerMobile() + "', "
+                    + "'" + bk.getCustomerEmail() + "', '" + bk.getBranch() + "', "
+                    + "'" + bk.getDriverId() + "', '" + bk.getVehicleId() + "', "
+                    + "'" + bk.getPickup() + "', '" + bk.getDrop() + "', '" + bk.getPrice() + "',"
+                    + " '" + bk.getTime() + "', '" + bk.getDate() + "')");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public List<booking> bookingList() {
+        List<booking> bk = new ArrayList<>();
+        try {
+            String query = "select * from booking";
+            rs = st.executeQuery(query);
+            System.out.println("db work");
+            while (rs.next()) {
+                booking bkng = new booking();
+                bkng.setId(rs.getInt("order_id"));
+                bkng.setCustomerId(rs.getInt("customerID"));
+                bkng.setCustomerName(rs.getString("customerName"));
+                bkng.setCustomerAddress(rs.getString("customerAddress"));
+                bkng.setCustomerMobile(rs.getInt("customerMobile"));
+                bkng.setCustomerEmail(rs.getString("customerEmail"));
+                bkng.setBranch(rs.getString("branch"));
+                bkng.setDriverId(rs.getInt("driverId"));
+                bkng.setVehicleId(rs.getInt("vehicleId"));
+                bkng.setPickup(rs.getString("pickupLocation"));
+                bkng.setDrop(rs.getString("dropLocation"));
+                bkng.setPrice(rs.getFloat("price"));
+                bkng.setTime(rs.getString("time"));
+                bkng.setDate(rs.getString("date"));
+                bkng.setAcception(rs.getString("acception"));
+
+                bk.add(bkng);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return bk;
+    }
+
+    @Override
+    public booking getbooking(String date, String branch) {
+        booking bkng = new booking();
+
+        try {
+            rs = st.executeQuery("SELECT customerID,customerName,customerAddress,"
+                    + "customerMobile,customerEmail,branch,driverId,vehicleId,pickupLocation,dropLocation,price,"
+                    + "time,date,acception FROM booking WHERE branch = '" + branch + "' "
+                    + "and date = '" + date + "'");
+
+            rs.next();
+
+            bkng.setId(rs.getInt("order_id"));
+            bkng.setCustomerId(rs.getInt("customerID"));
+            bkng.setCustomerName(rs.getString("customerName"));
+            bkng.setCustomerAddress(rs.getString("customerAddress"));
+            bkng.setCustomerMobile(rs.getInt("customerMobile"));
+            bkng.setCustomerEmail(rs.getString("customerEmail"));
+            bkng.setBranch(rs.getString("branch"));
+            bkng.setDriverId(rs.getInt("driverId"));
+            bkng.setVehicleId(rs.getInt("vehicleId"));
+            bkng.setPickup(rs.getString("pickupLocation"));
+            bkng.setDrop(rs.getString("dropLocation"));
+            bkng.setPrice(rs.getFloat("price"));
+            bkng.setTime(rs.getString("time"));
+            bkng.setDate(rs.getString("date"));
+            bkng.setAcception(rs.getString("acception"));
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return bkng;
+    }
+
+    @Override
+    public boolean updateBooking(booking bkng) {
+        int rowsAffected = 0;
+
+        try {
+            rowsAffected = st.executeUpdate("UPDATE `booking` SET  acception = '" + bkng.getAcception() + "' WHERE order_id = " + bkng.getId() + "");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return rowsAffected > 0;
     }
 
     
