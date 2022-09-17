@@ -12,7 +12,7 @@ import model.admin;
  * @author asel
  */
 public interface adminDBUtill {
-    public boolean adminLogin(admin ad);
+    public admin adminLogin(admin ad);
     public boolean addAdmin(admin ad);
     public List<admin>AdminList();
    public admin getAdmin(String search);

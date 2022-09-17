@@ -13,7 +13,7 @@ import model.vehicle;
  * @author asel
  */
 public interface driverDBUtill {
-    public boolean driverLogin(driver dr);
+    public driver driverLogin(driver dr);
     public boolean addDriver(driver dr);
     public List<driver>DriverList();
     public driver getDriver(String search);

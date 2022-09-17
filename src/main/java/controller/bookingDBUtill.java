@@ -14,4 +14,7 @@ public interface bookingDBUtill {
     public List<booking>bookingList();
     public booking getbooking(String date, String branch);
     public boolean updateBooking(booking bk);
+    public booking getBookingDriver(String search);
+    public List<booking>getBookingList(String search);
+    public List<booking>getBookingList2(String search);
 }

@@ -31,6 +31,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.booking;
 import model.destination;
+import model.feedback;
 import model.vehicleCat;
 
 /**
@@ -86,10 +87,10 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
                 cs.setBranch(rs.getString("Customer_branch"));
                 cs.setPassword(rs.getString("Customer_password"));
                 return cs;
-            }else{
+            } else {
                 return null;
             }
-            
+
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -169,24 +170,51 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         }
         return rowsAffected > 0;
     }
-
+    
     @Override
-    public boolean adminLogin(admin ad) {
-        //insert into admin (admin_name,admin_address,admin_mobile,admin_nic,admin_dob,admin_email,admin_age,branch_id) VALUES('asel','kadawatha',0765760512,'983002919v','1998.10.26','asel@gmail.com',23,1)
+    public boolean customerFeedback(feedback fd) {
         int rowsAffected = 0;
-
         try {
-            String query = "select * from admin where admin_email = '" + ad.getEmail() + "' and admin_password = '" + ad.getPassword() + "'";
-            rs = st.executeQuery(query);
-            System.out.println("db work");
 
-            while (rs.next()) {
-                rowsAffected = rowsAffected + 1;
-            }
+            rowsAffected = st.executeUpdate("INSERT INTO feedback (order_id,customer_Id,driver_Id,feedback_title,feedback) VALUES"
+                    + " ('" + fd.getOrderId()+ "','" + fd.getCustomerId()+ "'," + fd.getDriverId()+ ",'" + fd.getTitle()+ "','" + fd.getFeedback()+ "')");
+
         } catch (Exception e) {
             System.out.println(e);
         }
         return rowsAffected > 0;
+    }
+
+    @Override
+    public admin adminLogin(admin admn) {
+        //insert into admin (admin_name,admin_address,admin_mobile,admin_nic,admin_dob,admin_email,admin_age,branch_id) VALUES('asel','kadawatha',0765760512,'983002919v','1998.10.26','asel@gmail.com',23,1)
+        int rowsAffected = 0;
+
+        try {
+            String query = "select * from admin where admin_email = '" + admn.getEmail() + "' and admin_password = '" + admn.getPassword() + "'";
+            rs = st.executeQuery(query);
+            System.out.println("db work");
+
+            if (rs.next()) {
+                admn.setAdminId(rs.getInt("admin_id"));
+                admn.setName(rs.getString("admin_name"));
+                admn.setAddress(rs.getString("admin_address"));
+                admn.setMobile(rs.getInt("admin_mobile"));
+                admn.setNic(rs.getString("admin_nic"));
+                admn.setDob(rs.getString("admin_dob"));
+                admn.setEmail(rs.getString("admin_email"));
+                admn.setAge(rs.getInt("admin_age"));
+                admn.setPassword(rs.getString("admin_password"));
+                admn.setBranch(rs.getString("branch"));
+                admn.setType(rs.getString("admin_type"));
+                return admn;
+            }else{
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
     }
 
     @Override
@@ -282,23 +310,38 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         }
         return rowsAffected > 0;
     }
+//String query = "select * from driver where driver_nic = '" + dr.getNic() + "' and driver_password = '" + dr.getPassword() + "'";
 
     @Override
-    public boolean driverLogin(driver dr) {
+    public driver driverLogin(driver dr) {
         int rowsAffected = 0;
         //insert into driver (driver_name,driver_address,driver_mobile,driver_nic,driver_dob,driver_email,driver_age,driver_password,branch_id) VALUES('asel','kadawataha',0765760512,'983002919v','1998.10.26','vinjith98@gmail.com',23,'MTIzNDU2Nzg5MA==',1)
+
         try {
             String query = "select * from driver where driver_nic = '" + dr.getNic() + "' and driver_password = '" + dr.getPassword() + "'";
             rs = st.executeQuery(query);
             System.out.println("db work");
 
-            while (rs.next()) {
-                rowsAffected = rowsAffected + 1;
+            if (rs.next()) {
+                dr.setDriverID(rs.getInt("driver_id"));
+                dr.setName(rs.getString("driver_name"));
+                dr.setAddress(rs.getString("driver_address"));
+                dr.setMobile(rs.getInt("driver_mobile"));
+                dr.setNic(rs.getString("driver_nic"));
+                dr.setEmail(rs.getString("driver_dob"));
+                dr.setBranch(rs.getString("driver_email"));
+                dr.setAge(rs.getInt("driver_age"));
+                dr.setPassword(rs.getString("driver_password"));
+                dr.setBranch(rs.getString("branch"));
+                return dr;
+            } else {
+                return null;
             }
+
         } catch (Exception e) {
             System.out.println(e);
         }
-        return rowsAffected > 0;
+        return null;
     }
 
     @Override
@@ -607,7 +650,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
         try {
 
-            rowsAffected = st.executeUpdate("INSERT INTO vehicle (vehicle_name,vehicle_chasiNno,vehicle_noPlate,vehicleCatgory,vehicle_type,vehicle_passengers,branch,driver_id,vehicle_availability) VALUE ('" + vh.getVehicleName() + "','" + vh.getChasiNo() + "', '" + vh.getNoPlate() + "', '" + vh.getCategory() + "', '" + vh.getType() + "', '" + vh.getPassengers() + "', '" + vh.getBranch() + "', '" + vh.getDriver() + "', '" + vh.getAvailability() + "')");
+            rowsAffected = st.executeUpdate("INSERT INTO vehicle (vehicle_name,vehicle_chasiNno,vehicle_noPlate,vehicleCatgory,vehicle_type,vehicle_passengers,branch,driver_id,vehicle_photo,vehicle_availability) VALUE ('" + vh.getVehicleName() + "','" + vh.getChasiNo() + "', '" + vh.getNoPlate() + "', '" + vh.getCategory() + "', '" + vh.getType() + "', '" + vh.getPassengers() + "', '" + vh.getBranch() + "', '" + vh.getDriver() + "', '" + vh.getImage() + "', '" + vh.getAvailability() + "')");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -861,12 +904,12 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         }
         return dstn;
     }
-    
+
     @Override
     public List<destination> getDestiations(String branch) {
         List<destination> ds = new ArrayList<>();
         try {
-            String query = "select * from destination where destination_branch = '"+branch+"'";
+            String query = "select * from destination where destination_branch = '" + branch + "'";
             rs = st.executeQuery(query);
             System.out.println("db work");
             while (rs.next()) {
@@ -890,15 +933,8 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         int rowsAffected = 0;
         try {
 
-            rowsAffected = st.executeUpdate("INSERT INTO booking (customerID,customerName,customerAddress,"
-                    + "customerMobile,customerEmail,branch,driverId,vehicleId,pickupLocation,dropLocation,price,"
-                    + "time,date)"
-                    + " VALUE ('" + bk.getCustomerId() + "', '" + bk.getCustomerName() + "', "
-                    + "'" + bk.getCustomerAddress() + "', '" + bk.getCustomerMobile() + "', "
-                    + "'" + bk.getCustomerEmail() + "', '" + bk.getBranch() + "', "
-                    + "'" + bk.getDriverId() + "', '" + bk.getVehicleId() + "', "
-                    + "'" + bk.getPickup() + "', '" + bk.getDrop() + "', '" + bk.getPrice() + "',"
-                    + " '" + bk.getTime() + "', '" + bk.getDate() + "')");
+            rowsAffected = st.executeUpdate("INSERT INTO booking (customerID,branch,pickupLocation,dropLocation,price,vehicleId,driverId,acception,time,date) VALUES"
+                    + " ('" + bk.getCustomerId() + "', '" + bk.getBranch() + "', '" + bk.getPickup() + "', '" + bk.getDrop() + "',  '" + bk.getPrice() + "','" + bk.getVehicleId() + "', '" + bk.getDriverId() + "', '" + bk.getAcception() + "',  '" + bk.getTime() + "',  '" + bk.getDate() + "')");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -916,20 +952,16 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
             while (rs.next()) {
                 booking bkng = new booking();
                 bkng.setId(rs.getInt("order_id"));
-                bkng.setCustomerId(rs.getInt("customerID"));
-                bkng.setCustomerName(rs.getString("customerName"));
-                bkng.setCustomerAddress(rs.getString("customerAddress"));
-                bkng.setCustomerMobile(rs.getInt("customerMobile"));
-                bkng.setCustomerEmail(rs.getString("customerEmail"));
+                bkng.setCustomerId(rs.getString("customerID"));
                 bkng.setBranch(rs.getString("branch"));
-                bkng.setDriverId(rs.getInt("driverId"));
-                bkng.setVehicleId(rs.getInt("vehicleId"));
                 bkng.setPickup(rs.getString("pickupLocation"));
                 bkng.setDrop(rs.getString("dropLocation"));
                 bkng.setPrice(rs.getFloat("price"));
+                bkng.setVehicleId(rs.getInt("vehicleId"));
+                bkng.setDriverId(rs.getInt("driverId"));
+                bkng.setAcception(rs.getString("acception"));
                 bkng.setTime(rs.getString("time"));
                 bkng.setDate(rs.getString("date"));
-                bkng.setAcception(rs.getString("acception"));
 
                 bk.add(bkng);
             }
@@ -944,28 +976,23 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         booking bkng = new booking();
 
         try {
-            rs = st.executeQuery("SELECT customerID,customerName,customerAddress,"
-                    + "customerMobile,customerEmail,branch,driverId,vehicleId,pickupLocation,dropLocation,price,"
-                    + "time,date,acception FROM booking WHERE branch = '" + branch + "' "
+            rs = st.executeQuery("SELECT order_id,customerID,branch,pickupLocation,dropLocation,price,vehicleId,driverId,acception,"
+                    + "time,date FROM booking WHERE branch = '" + branch + "' "
                     + "and date = '" + date + "'");
 
             rs.next();
 
             bkng.setId(rs.getInt("order_id"));
-            bkng.setCustomerId(rs.getInt("customerID"));
-            bkng.setCustomerName(rs.getString("customerName"));
-            bkng.setCustomerAddress(rs.getString("customerAddress"));
-            bkng.setCustomerMobile(rs.getInt("customerMobile"));
-            bkng.setCustomerEmail(rs.getString("customerEmail"));
+            bkng.setCustomerId(rs.getString("customerID"));
             bkng.setBranch(rs.getString("branch"));
-            bkng.setDriverId(rs.getInt("driverId"));
-            bkng.setVehicleId(rs.getInt("vehicleId"));
             bkng.setPickup(rs.getString("pickupLocation"));
             bkng.setDrop(rs.getString("dropLocation"));
             bkng.setPrice(rs.getFloat("price"));
+            bkng.setVehicleId(rs.getInt("vehicleId"));
+            bkng.setDriverId(rs.getInt("driverId"));
+            bkng.setAcception(rs.getString("acception"));
             bkng.setTime(rs.getString("time"));
             bkng.setDate(rs.getString("date"));
-            bkng.setAcception(rs.getString("acception"));
 
         } catch (Exception e) {
             System.out.println(e);
@@ -987,6 +1014,92 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         return rowsAffected > 0;
     }
 
+    @Override
+    public booking getBookingDriver(String search) {
+        booking bkng = new booking();
+
+        try {
+            rs = st.executeQuery("SELECT * FROM booking WHERE driverId = '" + search + "'");
+
+            rs.next();
+            bkng.setId(rs.getInt("order_id"));
+            bkng.setCustomerId(rs.getString("customerID"));
+            bkng.setBranch(rs.getString("branch"));
+            bkng.setPickup(rs.getString("pickupLocation"));
+            bkng.setDrop(rs.getString("dropLocation"));
+            bkng.setPrice(rs.getFloat("price"));
+            bkng.setVehicleId(rs.getInt("vehicleId"));
+            bkng.setDriverId(rs.getInt("driverId"));
+            bkng.setAcception(rs.getString("acception"));
+            bkng.setTime(rs.getString("time"));
+            bkng.setDate(rs.getString("date"));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return bkng;
+    }
+
+    @Override
+    public List<booking> getBookingList(String search) {
+        List<booking> bk = new ArrayList<>();
+        try {
+            String query = "select * from booking where driverId = '" + search + "'";
+            rs = st.executeQuery(query);
+            System.out.println("db work");
+            while (rs.next()) {
+                booking bkng = new booking();
+                bkng.setId(rs.getInt("order_id"));
+                bkng.setCustomerId(rs.getString("customerID"));
+                bkng.setBranch(rs.getString("branch"));
+                bkng.setPickup(rs.getString("pickupLocation"));
+                bkng.setDrop(rs.getString("dropLocation"));
+                bkng.setPrice(rs.getFloat("price"));
+                bkng.setVehicleId(rs.getInt("vehicleId"));
+                bkng.setDriverId(rs.getInt("driverId"));
+                bkng.setAcception(rs.getString("acception"));
+                bkng.setTime(rs.getString("time"));
+                bkng.setDate(rs.getString("date"));
+
+                bk.add(bkng);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return bk;
+    }
+
+    @Override
+    public List<booking> getBookingList2(String search) {
+        List<booking> bk = new ArrayList<>();
+        try {
+            String query = "select * from booking where customerID = '" + search + "'";
+            rs = st.executeQuery(query);
+            System.out.println("db work");
+            while (rs.next()) {
+                booking bkng = new booking();
+                bkng.setId(rs.getInt("order_id"));
+                bkng.setCustomerId(rs.getString("customerID"));
+                bkng.setBranch(rs.getString("branch"));
+                bkng.setPickup(rs.getString("pickupLocation"));
+                bkng.setDrop(rs.getString("dropLocation"));
+                bkng.setPrice(rs.getFloat("price"));
+                bkng.setVehicleId(rs.getInt("vehicleId"));
+                bkng.setDriverId(rs.getInt("driverId"));
+                bkng.setAcception(rs.getString("acception"));
+                bkng.setTime(rs.getString("time"));
+                bkng.setDate(rs.getString("date"));
+
+                bk.add(bkng);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return bk;
+    }
+
     
+
+    
+
 
 }

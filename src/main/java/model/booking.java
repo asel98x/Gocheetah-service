@@ -10,40 +10,33 @@ package model;
  */
 public class booking {
     private int id;
-    private int customerId;
-    private String customerName;
-    private String customerAddress;
-    private int customerMobile;
-    private String customerEmail;
-    private String branch;
-    private int driverId;
-    private int vehicleId;
+    private String customerId;
     private String pickup;
     private String drop;
     private Float price;
+    private int vehicleId;
+    private String branch;
+    private int driverId;
+    private String acception;
     private String time;
     private String date;
-    private String acception;
+    
 
     public booking() {
     }
 
-    public booking(int id, int customerId, String customerName, String customerAddress, int customerMobile, String customerEmail, String branch, int driverId, int vehicleId, String pickup, String drop, Float price, String time, String date, String acception) {
+    public booking(int id, String customerId, String pickup, String drop, Float price, int vehicleId, String branch, int driverId, String acception, String time, String date) {
         this.id = id;
         this.customerId = customerId;
-        this.customerName = customerName;
-        this.customerAddress = customerAddress;
-        this.customerMobile = customerMobile;
-        this.customerEmail = customerEmail;
-        this.branch = branch;
-        this.driverId = driverId;
-        this.vehicleId = vehicleId;
         this.pickup = pickup;
         this.drop = drop;
         this.price = price;
+        this.vehicleId = vehicleId;
+        this.branch = branch;
+        this.driverId = driverId;
+        this.acception = acception;
         this.time = time;
         this.date = date;
-        this.acception = acception;
     }
 
     public int getId() {
@@ -54,68 +47,12 @@ public class booking {
         this.id = id;
     }
 
-    public int getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getCustomerAddress() {
-        return customerAddress;
-    }
-
-    public void setCustomerAddress(String customerAddress) {
-        this.customerAddress = customerAddress;
-    }
-
-    public int getCustomerMobile() {
-        return customerMobile;
-    }
-
-    public void setCustomerMobile(int customerMobile) {
-        this.customerMobile = customerMobile;
-    }
-
-    public String getCustomerEmail() {
-        return customerEmail;
-    }
-
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
-    }
-
-    public String getBranch() {
-        return branch;
-    }
-
-    public void setBranch(String branch) {
-        this.branch = branch;
-    }
-
-    public int getDriverId() {
-        return driverId;
-    }
-
-    public void setDriverId(int driverId) {
-        this.driverId = driverId;
-    }
-
-    public int getVehicleId() {
-        return vehicleId;
-    }
-
-    public void setVehicleId(int vehicleId) {
-        this.vehicleId = vehicleId;
     }
 
     public String getPickup() {
@@ -142,6 +79,38 @@ public class booking {
         this.price = price;
     }
 
+    public int getVehicleId() {
+        return vehicleId;
+    }
+
+    public void setVehicleId(int vehicleId) {
+        this.vehicleId = vehicleId;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
+
+    public int getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
+    }
+
+    public String getAcception() {
+        return acception;
+    }
+
+    public void setAcception(String acception) {
+        this.acception = acception;
+    }
+
     public String getTime() {
         return time;
     }
@@ -158,13 +127,10 @@ public class booking {
         this.date = date;
     }
 
-    public String getAcception() {
-        return acception;
-    }
+    
 
-    public void setAcception(String acception) {
-        this.acception = acception;
-    }
+    
+    
 
     
     

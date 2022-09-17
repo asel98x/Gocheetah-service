@@ -5,7 +5,9 @@
 package controller;
 
 import java.util.List;
+import model.booking;
 import model.customer;
+import model.feedback;
 
 /**
  *
@@ -18,4 +20,5 @@ public interface customerDBUtill {
    public customer getCustomer(String search);
    public boolean updatedCustomer(customer cs);
    public boolean deleteCustomer(customer cs);
+   public boolean customerFeedback(feedback fd);
 }

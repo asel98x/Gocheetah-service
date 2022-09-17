@@ -6,6 +6,7 @@
 package com.mycompany.gocheetah.service;
 
 import controller.adminDBUtill;
+import controller.bookingDBUtill;
 import controller.branchCategoryDBUtill;
 import db.MySQLUtill;
 import javax.jws.WebService;
@@ -19,9 +20,11 @@ import controller.vehicleCategoryDBUtill;
 import controller.vehicleDBUtill;
 import java.util.List;
 import model.admin;
+import model.booking;
 import model.branchCategory;
 import model.destination;
 import model.driver;
+import model.feedback;
 import model.vehicle;
 import model.vehicleCat;
 import model.vehicleCategory;
@@ -77,8 +80,14 @@ public class GocheetahWebService {
         return util.deleteCustomer(cs);
     }
     
+    @WebMethod(operationName = "customerFeedback")
+    public boolean customerFeedback(@WebParam(name = "cs") feedback fd){
+        customerDBUtill util = new MySQLUtill();
+        return util.customerFeedback(fd);
+    }
+    
     @WebMethod(operationName = "adminLogin")
-    public boolean adminLogin(@WebParam(name = "ad") admin ad){
+    public admin adminLogin(@WebParam(name = "ad") admin ad){
         adminDBUtill util = new MySQLUtill();
         return util.adminLogin(ad);
     }
@@ -114,7 +123,7 @@ public class GocheetahWebService {
     }
     
     @WebMethod(operationName = "driverLogin")
-    public boolean driverLogin(@WebParam(name = "dr") driver dr){
+    public driver driverLogin(@WebParam(name = "dr") driver dr){
         driverDBUtill util = new MySQLUtill();
         return util.driverLogin(dr);
     }
@@ -317,4 +326,47 @@ public class GocheetahWebService {
         destinationDBUtil util = new MySQLUtill();
         return util.getDestiations(branch);
     }
+    
+    @WebMethod(operationName = "addBooking")
+    public boolean addBooking(@WebParam(name = "bk") booking bk){
+        bookingDBUtill util = new MySQLUtill();
+        return util.addBooking(bk);
+    }
+    
+    @WebMethod(operationName = "bookingList")
+    public List<booking> bookingList() {
+        bookingDBUtill util = new MySQLUtill();
+        return util.bookingList();
+    }
+    
+    @WebMethod(operationName = "getbooking")
+    public booking getbooking(@WebParam(name = "search") String date, String branch) {
+        bookingDBUtill util = new MySQLUtill();
+        return util.getbooking(date,branch);
+    }
+    
+    @WebMethod(operationName = "updateBooking")
+    public boolean updateBooking(@WebParam(name = "bk") booking bk) {
+        bookingDBUtill util = new MySQLUtill();
+        return util.updateBooking(bk);
+    }
+    
+    @WebMethod(operationName = "getBookingDriver")
+    public booking getBookingDriver(@WebParam(name = "search") String search) {
+        bookingDBUtill util = new MySQLUtill();
+        return util.getBookingDriver(search);
+    }
+    
+    @WebMethod(operationName = "getBookingList")
+    public List<booking> getBookingList(@WebParam(name = "search") String search) {
+        bookingDBUtill util = new MySQLUtill();
+        return util.getBookingList(search);
+    }
+    
+    @WebMethod(operationName = "getBookingList2")
+    public List<booking> getBookingList2(@WebParam(name = "search") String search) {
+        bookingDBUtill util = new MySQLUtill();
+        return util.getBookingList2(search);
+    }
+    
 }

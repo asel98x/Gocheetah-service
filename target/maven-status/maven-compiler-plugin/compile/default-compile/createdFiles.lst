@@ -1,9 +1,13 @@
 com\mycompany\gocheetah\service\GocheetahWebService.class
 controller\vehicleCategoryDBUtill.class
+controller\destinationDBUtil.class
 model\person.class
 model\customer.class
+model\destination.class
 model\vehicleCategory.class
 model\admin.class
+controller\bookingDBUtill.class
+model\feedback.class
 model\booking.class
 controller\branchCategoryDBUtill.class
 model\vehicleCat.class

@@ -8,7 +8,8 @@ package model;
  *
  * @author asel
  */
-public class vehicle{
+public class vehicle {
+
     private int vehicleId;
     private String vehicleName;
     private String ChasiNo;
@@ -18,12 +19,13 @@ public class vehicle{
     private String passengers;
     private String branch;
     private String driver;
+    private String image;
     private String availability;
 
     public vehicle() {
     }
 
-    public vehicle(int vehicleId, String vehicleName, String ChasiNo, String NoPlate, String Category, String type, String passengers, String branch, String driver, String availability) {
+    public vehicle(int vehicleId, String vehicleName, String ChasiNo, String NoPlate, String Category, String type, String passengers, String branch, String driver, String image, String availability) {
         this.vehicleId = vehicleId;
         this.vehicleName = vehicleName;
         this.ChasiNo = ChasiNo;
@@ -33,6 +35,7 @@ public class vehicle{
         this.passengers = passengers;
         this.branch = branch;
         this.driver = driver;
+        this.image = image;
         this.availability = availability;
     }
 
@@ -108,6 +111,14 @@ public class vehicle{
         this.driver = driver;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public String getAvailability() {
         return availability;
     }
@@ -117,18 +128,5 @@ public class vehicle{
     }
 
     
-
-    
-
-    
-
-    
-
-   
-    
-
-    
- 
     
 }
-    
