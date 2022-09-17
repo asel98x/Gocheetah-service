@@ -21,4 +21,5 @@ public interface customerDBUtill {
    public boolean updatedCustomer(customer cs);
    public boolean deleteCustomer(customer cs);
    public boolean customerFeedback(feedback fd);
+   public feedback getCustomerFeedback(String search);
 }

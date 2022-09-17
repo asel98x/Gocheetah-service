@@ -6,6 +6,7 @@ package controller;
 
 import java.util.List;
 import model.admin;
+import model.booking;
 
 /**
  *

@@ -13,14 +13,14 @@ public class feedback {
     private int feedbackId;
     private String orderId;
     private String customerId;
-    private int driverId;
+    private String driverId;
     private String title;
     private String feedback;
 
     public feedback() {
     }
 
-    public feedback(int feedbackId, String orderId, String customerId, int driverId, String title, String feedback) {
+    public feedback(int feedbackId, String orderId, String customerId, String driverId, String title, String feedback) {
         this.feedbackId = feedbackId;
         this.orderId = orderId;
         this.customerId = customerId;
@@ -53,11 +53,11 @@ public class feedback {
         this.customerId = customerId;
     }
 
-    public int getDriverId() {
+    public String getDriverId() {
         return driverId;
     }
 
-    public void setDriverId(int driverId) {
+    public void setDriverId(String driverId) {
         this.driverId = driverId;
     }
 
@@ -77,6 +77,7 @@ public class feedback {
         this.feedback = feedback;
     }
 
+    
     
     
     

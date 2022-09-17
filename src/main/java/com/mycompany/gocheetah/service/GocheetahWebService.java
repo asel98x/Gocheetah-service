@@ -86,6 +86,13 @@ public class GocheetahWebService {
         return util.customerFeedback(fd);
     }
     
+    @WebMethod(operationName = "getCustomerFeedback")
+    public feedback getCustomerFeedback(@WebParam(name = "search") String search) {
+        customerDBUtill util = new MySQLUtill();
+        return util.getCustomerFeedback(search);
+    }
+    
+   
     @WebMethod(operationName = "adminLogin")
     public admin adminLogin(@WebParam(name = "ad") admin ad){
         adminDBUtill util = new MySQLUtill();
@@ -121,6 +128,7 @@ public class GocheetahWebService {
         adminDBUtill util = new MySQLUtill();
         return util.deleteAdmin(ad);
     }
+    
     
     @WebMethod(operationName = "driverLogin")
     public driver driverLogin(@WebParam(name = "dr") driver dr){

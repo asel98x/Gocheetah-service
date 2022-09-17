@@ -184,6 +184,26 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         }
         return rowsAffected > 0;
     }
+    
+    @Override
+    public feedback getCustomerFeedback(String search) {
+        feedback fb = new feedback();
+
+        try {
+            rs = st.executeQuery("SELECT * FROM feedback WHERE order_id = '" + search + "'");
+
+            rs.next();
+            fb.setFeedbackId(rs.getInt("id"));
+            fb.setOrderId(rs.getString("order_id"));
+            fb.setCustomerId(rs.getString("customer_Id"));
+            fb.setDriverId(rs.getString("driver_Id"));
+            fb.setTitle(rs.getString("feedback_title"));
+            fb.setFeedback(rs.getString("feedback"));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return fb;
+    }
 
     @Override
     public admin adminLogin(admin admn) {
@@ -310,7 +330,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         }
         return rowsAffected > 0;
     }
-//String query = "select * from driver where driver_nic = '" + dr.getNic() + "' and driver_password = '" + dr.getPassword() + "'";
+
 
     @Override
     public driver driverLogin(driver dr) {
@@ -1096,6 +1116,12 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         }
         return bk;
     }
+
+    
+
+    
+
+    
 
     
 
