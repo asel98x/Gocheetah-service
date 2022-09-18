@@ -196,7 +196,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
             fb.setFeedbackId(rs.getInt("id"));
             fb.setOrderId(rs.getString("order_id"));
             fb.setCustomerId(rs.getString("customer_Id"));
-            fb.setDriverId(rs.getString("driver_Id"));
+            fb.setDriverId(rs.getInt("driver_Id"));
             fb.setTitle(rs.getString("feedback_title"));
             fb.setFeedback(rs.getString("feedback"));
         } catch (Exception e) {
@@ -1039,7 +1039,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         booking bkng = new booking();
 
         try {
-            rs = st.executeQuery("SELECT * FROM booking WHERE driverId = '" + search + "'");
+            rs = st.executeQuery("SELECT * FROM booking WHERE order_id = '" + search + "'");
 
             rs.next();
             bkng.setId(rs.getInt("order_id"));
