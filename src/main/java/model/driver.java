@@ -17,7 +17,11 @@ public class driver extends person{
     public driver() {
     }
 
-    public driver(int driverID, String licence, String vehicle, String name, String address, int mobile, String nic, String dob, int age, String email, String branch, String password) {
+    public driver(String licence) {
+        this.licence = licence;
+    }
+
+    public driver(String licence, String name, String address, int mobile, String nic, String dob, int age, String email, String branch, String password) {
         super(name, address, mobile, nic, dob, age, email, branch, password);
         this.driverID = driverID;
         this.licence = licence;
@@ -43,7 +47,7 @@ public class driver extends person{
     public String getVehicle() {
         return vehicle;
     }
-
+    
     public void setVehicle(String vehicle) {
         this.vehicle = vehicle;
     }

@@ -303,6 +303,7 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         }
         return ad;
     }
+  
 
     @Override
     public boolean updateAdmin(admin ad) {
@@ -894,10 +895,10 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
 
             rs.next();
 
-            dstn.setDestinationID(rs.getInt("destination_id"));
-            dstn.setdBranch(rs.getString("destination_branch"));
-            dstn.setdPickup(rs.getString("destination_pickup"));
-            dstn.setdDrop(rs.getString("destination_drop"));
+//            dstn.setDestinationID(rs.getInt("destination_id"));
+//            dstn.setdBranch(rs.getString("destination_branch"));
+//            dstn.setdPickup(rs.getString("destination_pickup"));
+//            dstn.setdDrop(rs.getString("destination_drop"));
             dstn.setDistance(rs.getInt("distance"));
         } catch (Exception e) {
             System.out.println(e);
@@ -914,11 +915,11 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
 
             rs.next();
 
-            dstn.setDestinationID(rs.getInt("destination_id"));
-            dstn.setdBranch(rs.getString("destination_branch"));
+            //dstn.setDestinationID(rs.getInt("destination_id"));
+            //dstn.setdBranch(rs.getString("destination_branch"));
             dstn.setdPickup(rs.getString("destination_pickup"));
             dstn.setdDrop(rs.getString("destination_drop"));
-            dstn.setDistance(rs.getInt("distance"));
+            //dstn.setDistance(rs.getInt("distance"));
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -1116,6 +1117,8 @@ public class MySQLUtill implements customerDBUtill, adminDBUtill, driverDBUtill,
         }
         return bk;
     }
+
+    
 
     
 

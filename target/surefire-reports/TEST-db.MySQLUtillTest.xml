@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="54" failures="0" name="db.MySQLUtillTest" time="0.493" errors="0" skipped="0">
+  <properties>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="sun.boot.library.path" value="F:\Users\asel\Documents\NetBeansProjects\jdk8u342-b07\jre\bin"/>
+    <property name="java.vm.version" value="25.342-b07"/>
+    <property name="java.vm.vendor" value="Temurin"/>
+    <property name="maven.multiModuleProjectDirectory" value="F:\Users\asel\Desktop\degree documents\Java EE\assignment\Gocheetah\Gocheetah-service"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="path.separator" value=";"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.script" value=""/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="test" value="db.MySQLUtillTest"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="F:\Users\asel\Desktop\degree documents\Java EE\assignment\Gocheetah\Gocheetah-service"/>
+    <property name="java.runtime.version" value="1.8.0_342-b07"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="java.endorsed.dirs" value="F:\Users\asel\Documents\NetBeansProjects\jdk8u342-b07\jre\lib\endorsed"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.io.tmpdir" value="F:\Users\asel\AppData\Local\Temp\"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.variant" value=""/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="maven.ext.class.path" value="F:\Program Files\NetBeans-14\netbeans\java\maven-nblib\netbeans-eventspy.jar"/>
+    <property name="classworlds.conf" value="F:\Program Files\NetBeans-14\netbeans\java\maven\bin\m2.conf"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="F:\Users\asel\Documents\NetBeansProjects\jdk8u342-b07\bin;F:\Windows\Sun\Java\bin;F:\Windows\system32;F:\Windows;F:\Program Files\Common Files\Oracle\Java\javapath;F:\Windows\system32;F:\Windows;F:\Windows\System32\Wbem;F:\Windows\System32\WindowsPowerShell\v1.0\;F:\Windows\System32\OpenSSH\;G:\matlab\runtime\win64;G:\matlab\bin;G:\matlab\polyspace\bin;F:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn\;F:\Program Files\Azure Data Studio\bin;F:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;F:\Program Files (x86)\Microsoft SQL Server\150\Tools\Binn\;F:\Program Files\Microsoft SQL Server\150\Tools\Binn\;F:\Program Files\Microsoft SQL Server\150\DTS\Binn\;F:\Program Files\dotnet\;F:\Program Files\Microsoft SQL Server\130\Tools\Binn\;F:\Program Files\Git\cmd;F:\Program Files\MySQL\MySQL Shell 8.0\bin\;F:\Users\asel\AppData\Local\Programs\Python\Python310\Scripts\;F:\Users\asel\AppData\Local\Programs\Python\Python310\;F:\Users\asel\AppData\Local\Microsoft\WindowsApps;G:\flutter\flutter\bin;F:\Users\asel\AppData\Local\Programs\Microsoft VS Code\bin;F:\Program Files\Azure Data Studio\bin;F:\Users\asel\AppData\Local\GitHubDesktop\bin;."/>
+    <property name="maven.conf" value="F:\Program Files\NetBeans-14\netbeans\java\maven/conf"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="52.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="10.0"/>
+    <property name="library.jansi.path" value="F:\Program Files\NetBeans-14\netbeans\java\maven\lib\jansi-native"/>
+    <property name="user.home" value="F:\Users\asel"/>
+    <property name="user.timezone" value="Asia/Colombo"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="user.name" value="asel"/>
+    <property name="java.class.path" value="F:\Program Files\NetBeans-14\netbeans\java\maven\boot\plexus-classworlds-2.6.0.jar"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="F:\Users\asel\Documents\NetBeansProjects\jdk8u342-b07\jre"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=db.MySQLUtillTest -Dmaven.ext.class.path=F:\Program Files\NetBeans-14\netbeans\java\maven-nblib\netbeans-eventspy.jar surefire:test"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="en"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.8.0_342"/>
+    <property name="java.ext.dirs" value="F:\Users\asel\Documents\NetBeansProjects\jdk8u342-b07\jre\lib\ext;F:\Windows\Sun\Java\lib\ext"/>
+    <property name="sun.boot.class.path" value="F:\Users\asel\Documents\NetBeansProjects\jdk8u342-b07\jre\lib\resources.jar;F:\Users\asel\Documents\NetBeansProjects\jdk8u342-b07\jre\lib\rt.jar;F:\Users\asel\Documents\NetBeansProjects\jdk8u342-b07\jre\lib\sunrsasign.jar;F:\Users\asel\Documents\NetBeansProjects\jdk8u342-b07\jre\lib\jsse.jar;F:\Users\asel\Documents\NetBeansProjects\jdk8u342-b07\jre\lib\jce.jar;F:\Users\asel\Documents\NetBeansProjects\jdk8u342-b07\jre\lib\charsets.jar;F:\Users\asel\Documents\NetBeansProjects\jdk8u342-b07\jre\lib\jfr.jar;F:\Users\asel\Documents\NetBeansProjects\jdk8u342-b07\jre\classes"/>
+    <property name="java.vendor" value="Temurin"/>
+    <property name="maven.home" value="F:\Program Files\NetBeans-14\netbeans\java\maven"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+  </properties>
+  <testcase classname="db.MySQLUtillTest" name="testVehicleCategoryList" time="0.339"/>
+  <testcase classname="db.MySQLUtillTest" name="testDeleteAdmin" time="0.004"/>
+  <testcase classname="db.MySQLUtillTest" name="testViewVehicleCateories" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetBookingList" time="0.006"/>
+  <testcase classname="db.MySQLUtillTest" name="testViewVehicles" time="0.005"/>
+  <testcase classname="db.MySQLUtillTest" name="testCustomerFeedback" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetbooking" time="0.005"/>
+  <testcase classname="db.MySQLUtillTest" name="testUpdateAdmin" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testDeleteVehicleCategory" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetBookingList2" time="0.004"/>
+  <testcase classname="db.MySQLUtillTest" name="testUpdatedBranch" time="0.004"/>
+  <testcase classname="db.MySQLUtillTest" name="testUpdatedCustomer" time="0.004"/>
+  <testcase classname="db.MySQLUtillTest" name="testAddAdmin" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testVehicleList" time="0.004"/>
+  <testcase classname="db.MySQLUtillTest" name="testViewDstination" time="0.004"/>
+  <testcase classname="db.MySQLUtillTest" name="testUpdatedVehicleCategory" time="0.001"/>
+  <testcase classname="db.MySQLUtillTest" name="testUpdateDriver" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetDstination" time="0.004"/>
+  <testcase classname="db.MySQLUtillTest" name="testBookingList" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testCustomerLogin" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testDeleteBranch" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testDeleteDstination" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetLocations" time="0.007"/>
+  <testcase classname="db.MySQLUtillTest" name="testDeleteDriver" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testDriverList" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testAdminLogin" time="0.001"/>
+  <testcase classname="db.MySQLUtillTest" name="testAddDstination" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testUpdateDstination" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetBookingDriver" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testFindDriverVehicleList" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testAddBranch" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testAddDriver" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testUpdateBooking" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testBranchesList" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testDriverLogin" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetDestiations" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testCustomerSignup" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetVehicle" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testAdminList" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testViewBranches" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testUpdateVehicle" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testAddVehicleCategory" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetAdminT" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetBranch" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetDriver" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetVehicleCategoryh" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testAddBooking" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testDstinationList" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testAddVehicle" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testDeleteCustomer" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetDistance" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testCustomerList" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetCustomer" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testDeleteVehicle" time="0.002"/>
+</testsuite>
