@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="54" failures="0" name="db.MySQLUtillTest" time="0.493" errors="0" skipped="0">
+<testsuite tests="54" failures="0" name="db.MySQLUtillTest" time="0.562" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="F:\Users\asel\Documents\NetBeansProjects\jdk8u342-b07\jre\bin"/>
@@ -65,58 +65,58 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="db.MySQLUtillTest" name="testVehicleCategoryList" time="0.339"/>
-  <testcase classname="db.MySQLUtillTest" name="testDeleteAdmin" time="0.004"/>
-  <testcase classname="db.MySQLUtillTest" name="testViewVehicleCateories" time="0.003"/>
-  <testcase classname="db.MySQLUtillTest" name="testGetBookingList" time="0.006"/>
+  <testcase classname="db.MySQLUtillTest" name="testVehicleCategoryList" time="0.373"/>
+  <testcase classname="db.MySQLUtillTest" name="testDeleteAdmin" time="0.022"/>
+  <testcase classname="db.MySQLUtillTest" name="testViewVehicleCateories" time="0"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetBookingList" time="0.029"/>
   <testcase classname="db.MySQLUtillTest" name="testViewVehicles" time="0.005"/>
-  <testcase classname="db.MySQLUtillTest" name="testCustomerFeedback" time="0.003"/>
-  <testcase classname="db.MySQLUtillTest" name="testGetbooking" time="0.005"/>
-  <testcase classname="db.MySQLUtillTest" name="testUpdateAdmin" time="0.003"/>
-  <testcase classname="db.MySQLUtillTest" name="testDeleteVehicleCategory" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testCustomerFeedback" time="0"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetbooking" time="0.007"/>
+  <testcase classname="db.MySQLUtillTest" name="testUpdateAdmin" time="0.004"/>
+  <testcase classname="db.MySQLUtillTest" name="testDeleteVehicleCategory" time="0.004"/>
   <testcase classname="db.MySQLUtillTest" name="testGetBookingList2" time="0.004"/>
-  <testcase classname="db.MySQLUtillTest" name="testUpdatedBranch" time="0.004"/>
+  <testcase classname="db.MySQLUtillTest" name="testUpdatedBranch" time="0.003"/>
   <testcase classname="db.MySQLUtillTest" name="testUpdatedCustomer" time="0.004"/>
-  <testcase classname="db.MySQLUtillTest" name="testAddAdmin" time="0.003"/>
-  <testcase classname="db.MySQLUtillTest" name="testVehicleList" time="0.004"/>
-  <testcase classname="db.MySQLUtillTest" name="testViewDstination" time="0.004"/>
-  <testcase classname="db.MySQLUtillTest" name="testUpdatedVehicleCategory" time="0.001"/>
+  <testcase classname="db.MySQLUtillTest" name="testAddAdmin" time="0.004"/>
+  <testcase classname="db.MySQLUtillTest" name="testVehicleList" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testViewDstination" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testUpdatedVehicleCategory" time="0"/>
   <testcase classname="db.MySQLUtillTest" name="testUpdateDriver" time="0.002"/>
-  <testcase classname="db.MySQLUtillTest" name="testGetDstination" time="0.004"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetDstination" time="0.003"/>
   <testcase classname="db.MySQLUtillTest" name="testBookingList" time="0.003"/>
   <testcase classname="db.MySQLUtillTest" name="testCustomerLogin" time="0.002"/>
-  <testcase classname="db.MySQLUtillTest" name="testDeleteBranch" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testDeleteBranch" time="0.002"/>
   <testcase classname="db.MySQLUtillTest" name="testDeleteDstination" time="0.002"/>
-  <testcase classname="db.MySQLUtillTest" name="testGetLocations" time="0.007"/>
-  <testcase classname="db.MySQLUtillTest" name="testDeleteDriver" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetLocations" time="0.006"/>
+  <testcase classname="db.MySQLUtillTest" name="testDeleteDriver" time="0.002"/>
   <testcase classname="db.MySQLUtillTest" name="testDriverList" time="0.003"/>
-  <testcase classname="db.MySQLUtillTest" name="testAdminLogin" time="0.001"/>
-  <testcase classname="db.MySQLUtillTest" name="testAddDstination" time="0.003"/>
-  <testcase classname="db.MySQLUtillTest" name="testUpdateDstination" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testAdminLogin" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testAddDstination" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testUpdateDstination" time="0.004"/>
   <testcase classname="db.MySQLUtillTest" name="testGetBookingDriver" time="0.003"/>
-  <testcase classname="db.MySQLUtillTest" name="testFindDriverVehicleList" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testFindDriverVehicleList" time="0.002"/>
   <testcase classname="db.MySQLUtillTest" name="testAddBranch" time="0.003"/>
   <testcase classname="db.MySQLUtillTest" name="testAddDriver" time="0.002"/>
   <testcase classname="db.MySQLUtillTest" name="testUpdateBooking" time="0.003"/>
   <testcase classname="db.MySQLUtillTest" name="testBranchesList" time="0.002"/>
   <testcase classname="db.MySQLUtillTest" name="testDriverLogin" time="0.002"/>
-  <testcase classname="db.MySQLUtillTest" name="testGetDestiations" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetDestiations" time="0.002"/>
   <testcase classname="db.MySQLUtillTest" name="testCustomerSignup" time="0.002"/>
-  <testcase classname="db.MySQLUtillTest" name="testGetVehicle" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetVehicle" time="0.003"/>
   <testcase classname="db.MySQLUtillTest" name="testAdminList" time="0.003"/>
-  <testcase classname="db.MySQLUtillTest" name="testViewBranches" time="0.003"/>
-  <testcase classname="db.MySQLUtillTest" name="testUpdateVehicle" time="0.002"/>
-  <testcase classname="db.MySQLUtillTest" name="testAddVehicleCategory" time="0.002"/>
-  <testcase classname="db.MySQLUtillTest" name="testGetAdminT" time="0.003"/>
-  <testcase classname="db.MySQLUtillTest" name="testGetBranch" time="0.002"/>
-  <testcase classname="db.MySQLUtillTest" name="testGetDriver" time="0.003"/>
-  <testcase classname="db.MySQLUtillTest" name="testGetVehicleCategoryh" time="0.002"/>
-  <testcase classname="db.MySQLUtillTest" name="testAddBooking" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testViewBranches" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testUpdateVehicle" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testAddVehicleCategory" time="0.004"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetAdminT" time="0.001"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetBranch" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetDriver" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetVehicleCategoryh" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testAddBooking" time="0.001"/>
   <testcase classname="db.MySQLUtillTest" name="testDstinationList" time="0.003"/>
   <testcase classname="db.MySQLUtillTest" name="testAddVehicle" time="0.002"/>
   <testcase classname="db.MySQLUtillTest" name="testDeleteCustomer" time="0.002"/>
   <testcase classname="db.MySQLUtillTest" name="testGetDistance" time="0.002"/>
-  <testcase classname="db.MySQLUtillTest" name="testCustomerList" time="0.002"/>
-  <testcase classname="db.MySQLUtillTest" name="testGetCustomer" time="0.002"/>
+  <testcase classname="db.MySQLUtillTest" name="testCustomerList" time="0.003"/>
+  <testcase classname="db.MySQLUtillTest" name="testGetCustomer" time="0.004"/>
   <testcase classname="db.MySQLUtillTest" name="testDeleteVehicle" time="0.002"/>
 </testsuite>

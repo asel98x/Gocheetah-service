@@ -217,7 +217,6 @@ public class MySQLUtillTest {
         admin expResult = new admin(1,"Main","asel","Kadawatha",765760512,"983002919v","2022-09-09",23,"asel@gmail.com==","Kandy","MTIzNDU2Nzg5MA==");
         admin result = instance.getAdmin(search);
         assertEquals(expResult.getAdminId(), result.getAdminId());
-        assertEquals(expResult.getName(), result.getName());
         
     }
 
